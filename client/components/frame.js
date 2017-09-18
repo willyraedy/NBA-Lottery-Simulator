@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
 import ModelSpecs from './modelSpecs';
+import ModelResults from './modelResults';
 
 const styles = theme => ({
   root: {
@@ -37,7 +38,10 @@ function Frame(props) {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={8} md={9}>
-          <Paper className={classes.paper}>MODEL RESULTS</Paper>
+          <Paper className={classes.paper}>
+            MODEL RESULTS
+            <ModelResults />
+          </Paper>
         </Grid>
       </Grid>
     </div>

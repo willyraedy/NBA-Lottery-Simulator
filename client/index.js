@@ -8,6 +8,8 @@ import { Main } from './components';
 // establishes socket connection
 import './socket'
 
+console.log('Can you see me?')
+
 ReactDOM.render(
   <Provider store={store}>
     <Main />
