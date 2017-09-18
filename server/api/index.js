@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 module.exports = router;
 
-router.use('/users', require('./users'));
+router.use('/simulate', require('./simulate'));
 router.use('/record', require('./records'));
 
 router.use((req, res, next) => {
