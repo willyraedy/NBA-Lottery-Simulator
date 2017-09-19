@@ -6,6 +6,8 @@ import { Table, TableRow, TableCell, TableBody, FormControl, InputLabel, Select,
 import { fetchSimulationResults } from '../store';
 import SingleSpec from './singleSpec';
 
+import generateArray from './utils/arrayCreator';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -23,14 +25,6 @@ const styles = theme => ({
   },
 });
 
-function generateArray(start, end) {
-  const seasonsArray = [];
-  for (let i = start; i <= end; i++) {
-    seasonsArray.push(i);
-  }
-  return seasonsArray;
-}
-
 class ModelSpecs extends React.Component {
   constructor() {
     super();
@@ -47,7 +41,6 @@ class ModelSpecs extends React.Component {
 
   handleChange(e, key) {
     const value = e.target.value;
-    console.log('key', key, 'Value: ', value)
     this.setState({ [key]: value });
   }
 
@@ -92,7 +85,7 @@ class ModelSpecs extends React.Component {
             <SingleSpec
               classes={classes}
               handleChange={this.handleChange}
-              optionArr={[1000, 10000, 100000, 1000000]}
+              optionArr={[1, 1000, 10000, 100000, 1000000]}
               paramName="numSims"
               val={this.state.numSims}
               label="Number of Simulations:"

@@ -3,8 +3,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import { connect } from 'react-redux';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+
+import generateArray from './utils/arrayCreator';
 
 const styles = theme => ({
   paper: {
@@ -14,44 +17,34 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
-}
-
-const data = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-function ModelResults(props) {
-  const classes = props.classes;
-
+function ModelResults({ classes, results }) {
   return (
     <Paper className={classes.paper}>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell numeric>Calories</TableCell>
-            <TableCell numeric>Fat (g)</TableCell>
-            <TableCell numeric>Carbs (g)</TableCell>
-            <TableCell numeric>Protein (g)</TableCell>
+            <TableCell>Team Name</TableCell>
+            <TableCell numeric>Record</TableCell>
+            <TableCell numeric>First Pick Percentage</TableCell>
+            {
+              generateArray(1, results.length).map(num => <TableCell numeric>{num}</TableCell>)
+            }
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
+          {results.map((teamObj) => {
             return (
-              <TableRow key={n.id}>
-                <TableCell>{n.name}</TableCell>
-                <TableCell numeric>{n.calories}</TableCell>
-                <TableCell numeric>{n.fat}</TableCell>
-                <TableCell numeric>{n.carbs}</TableCell>
-                <TableCell numeric>{n.protein}</TableCell>
+              <TableRow key={teamObj.id}>
+                <TableCell>{teamObj.team}</TableCell>
+                <TableCell >{`${82 - teamObj.losses} - ${teamObj.losses}`}</TableCell>
+                <TableCell >{Math.floor(teamObj.firstPickPercentage * 100) / 100}</TableCell>
+                {
+                  teamObj.percentages.map((pickPercentage, i) => {
+                    return (
+                      <TableCell key={i} numeric>{ Math.floor(pickPercentage * 100) / 100 }</TableCell>
+                    )
+                  })
+                }
               </TableRow>
             );
           })}
@@ -61,8 +54,17 @@ function ModelResults(props) {
   );
 }
 
+const mapState = (state) => {
+  return {
+    results: state.results,
+  }
+}
+
+const mapDispatch = null;
+
+export default withStyles(styles)(connect(mapState, mapDispatch)(ModelResults));
+
 ModelResults.propTypes = {
   classes: PropTypes.object.isRequired,
+  results: PropTypes.array.isRequired,
 };
-
-export default withStyles(styles)(ModelResults);

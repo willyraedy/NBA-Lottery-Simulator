@@ -25,9 +25,7 @@ const styles = theme => ({
   },
 });
 
-function Frame(props) {
-  const classes = props.classes;
-
+function Frame({ classes, results }) {
   return (
     <div className={classes.root}>
       <Grid container spacing={24} className={classes.myContainer}>
@@ -37,12 +35,15 @@ function Frame(props) {
             <ModelSpecs />
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={8} md={9}>
-          <Paper className={classes.paper}>
-            MODEL RESULTS
-            <ModelResults />
-          </Paper>
-        </Grid>
+        {
+          results.length ?
+            <Grid item xs={12} sm={8} md={9}>
+              <Paper className={classes.paper}>
+                MODEL RESULTS
+                <ModelResults />
+              </Paper>
+            </Grid> : null
+        }
       </Grid>
     </div>
   );
@@ -51,7 +52,11 @@ function Frame(props) {
 /**
  * CONTAINER
  */
-const mapState = null;
+const mapState = (state) => {
+  return {
+    results: state.results,
+  };
+};
 
 const mapDispatch = null;
 
@@ -64,4 +69,5 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(Frame));
  */
 Frame.propTypes = {
   classes: PropTypes.object.isRequired,
+  results: PropTypes.array.isRequired,
 };
