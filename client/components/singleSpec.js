@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-function SingleSpec({ classes, handleChange, optionArr, paramName, val, label }) {
+function SingleSpec({ classes, handleChange, optionArr, val, label }) {
   return (
     <TableRow>
       <TableCell>{label}</TableCell>
@@ -29,10 +29,15 @@ function SingleSpec({ classes, handleChange, optionArr, paramName, val, label })
         <FormControl className={classes.formControl}>
           <Select
             value={val}
-            input={<Input onChange={e => handleChange(e, paramName)} id={paramName} />}
+            input={<Input onChange={handleChange} id={label} />}
           >
             {
-              optionArr.map(option => <MenuItem key={option} value={option}>{option}</MenuItem>)
+              optionArr.map((option) => {
+                if (option === 'custom') {
+                  return (<MenuItem key={option} value={option}>{option}</MenuItem>)
+                }
+                return (<MenuItem key={option} value={option}>{option}</MenuItem>)
+              })
             }
           </Select>
         </FormControl>
@@ -59,4 +64,6 @@ SingleSpec.propTypes = {
   handleChange: PropTypes.func.isRequired,
   optionArr: PropTypes.array.isRequired,
   paramName: PropTypes.string.isRequired,
+  val: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  label: PropTypes.string.isRequired,
 };

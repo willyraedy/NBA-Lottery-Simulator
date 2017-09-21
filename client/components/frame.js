@@ -7,6 +7,7 @@ import Grid from 'material-ui/Grid';
 
 import ModelSpecs from './modelSpecs';
 import ModelResults from './modelResults';
+import Combos from './combos';
 
 const styles = theme => ({
   root: {
@@ -42,7 +43,13 @@ function Frame({ classes, results }) {
                 MODEL RESULTS
                 <ModelResults />
               </Paper>
-            </Grid> : null
+            </Grid> :
+            <Grid item xs={12} sm={6} md={6}>
+              <Paper className={classes.paper}>
+                CUSTOMIZE THE LOTTERY COMBINATIONS FOR EACH TEAM
+                <Combos />
+              </Paper>
+            </Grid>
         }
       </Grid>
     </div>

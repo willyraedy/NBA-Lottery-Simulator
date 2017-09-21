@@ -8,8 +8,9 @@ const defaultResults = [];
 const getSimulationResults = results => ({ type: GET_SIMULATION_RESULTS, results });
 
 export const fetchSimulationResults = paramObj => (dispatch) => {
-  const { type, season, numPicks, numSims } = paramObj;
-  return axios.get(`/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}`)
+  const { type, season, numPicks, numSims, combos } = paramObj;
+  const comboQueryString = createComboQueryString(combos);
+  return axios.get(`/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}&${comboQueryString}`)
     .then(res => res.data)
     .then((results) => {
       dispatch(getSimulationResults(results));
@@ -25,3 +26,7 @@ export default function (state = defaultResults, action) {
       return state;
   }
 }
+
+// Helper Function
+
+const createComboQueryString = comboArr => comboArr.map((combo, i) => `combos[]=${combo}`).join('&');

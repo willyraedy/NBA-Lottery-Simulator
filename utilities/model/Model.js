@@ -1,4 +1,7 @@
 function Model(modelName, arrOfTeams, numOfSimulations, combos, numOfLotteryPicks) {
+
+  combos = combos.map(combo => +combo) // combos come through the query as strings so need to be type coerced
+
   this.arrOfTeams = arrOfTeams;
   this.params = {
     modelName,

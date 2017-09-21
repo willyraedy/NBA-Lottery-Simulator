@@ -4,13 +4,11 @@ const Model = require('./model/Model');
 
 let flatCombos = [34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33];
 
-function getCombos(comboType) {
-  switch (comboType) {
-    case 'current':
-      return [250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    default:
-      return [250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+function getCombos(combos) {
+  if (combos === 'current') {
+    return [250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
+  return combos;
 }
 
 function simulateDraft(yearObj, numSims, comboType, numPicks) {
