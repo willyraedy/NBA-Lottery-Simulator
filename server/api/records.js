@@ -9,6 +9,6 @@ router.get('/:season', (req, res, next) =>
       season: req.params.season,
     }
   })
-    .then(users => res.json(users))
+    .then(record => res.json(record))
     .catch(next)
 );

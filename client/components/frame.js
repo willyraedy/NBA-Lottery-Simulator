@@ -7,7 +7,9 @@ import Grid from 'material-ui/Grid';
 
 import ModelSpecs from './modelSpecs';
 import ModelResults from './modelResults';
+import ComboGraph from './comboGraph';
 import Combos from './combos';
+import TeamRecords from './teamRecords';
 
 const styles = theme => ({
   root: {
@@ -18,7 +20,7 @@ const styles = theme => ({
     padding: 16,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    height: '80vh',
+    height: '120vh',
   },
   myContainer: {
     paddingRight: 40,
@@ -26,7 +28,7 @@ const styles = theme => ({
   },
 });
 
-function Frame({ classes, results }) {
+function Frame({ classes, results, type }) {
   return (
     <div className={classes.root}>
       <Grid container spacing={24} className={classes.myContainer}>
@@ -44,12 +46,30 @@ function Frame({ classes, results }) {
                 <ModelResults />
               </Paper>
             </Grid> :
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid item xs={4} sm={3} md={3}>
+              <Paper className={classes.paper}>
+                RECORDS GO HERE
+                <TeamRecords />
+              </Paper>
+            </Grid>
+        }
+        {
+          !results.length && type === 'Rank' ?
+            <Grid item xs={8} sm={5} md={6}>
               <Paper className={classes.paper}>
                 CUSTOMIZE THE LOTTERY COMBINATIONS FOR EACH TEAM
                 <Combos />
               </Paper>
-            </Grid>
+            </Grid> : null
+        }
+        {
+          !results.length && type === 'Record' ?
+            <Grid item xs={8} sm={5} md={6}>
+              <Paper className={classes.paper}>
+                GRAPH GOES HERE
+                <ComboGraph />
+              </Paper>
+            </Grid> : null
         }
       </Grid>
     </div>
@@ -62,6 +82,7 @@ function Frame({ classes, results }) {
 const mapState = (state) => {
   return {
     results: state.results,
+    type: state.type,
   };
 };
 
@@ -77,4 +98,5 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(Frame));
 Frame.propTypes = {
   classes: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
+  type: PropTypes.string.isRequired,
 };

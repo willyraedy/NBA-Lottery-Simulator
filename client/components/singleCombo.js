@@ -26,7 +26,6 @@ const styles = theme => ({
 function SingleCombo({ classes, comboIndex, currentCombo, handleComboChange, currentPercentage }) {
   return (
     <TableRow>
-      <TableCell>{`Rank: ${comboIndex + 1}`}</TableCell>
       <TableCell>
         <FormControl className={classes.formControl}>
           <Input

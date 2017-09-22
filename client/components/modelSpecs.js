@@ -6,7 +6,7 @@ import { Table, TableBody, Button, FormGroup } from 'material-ui';
 
 import SingleSpec from './singleSpec';
 import generateArray from './utils/arrayCreator';
-import { getType, getSeason, getNumberOfLotteryPicks, getNumberOfSimulations, fetchSimulationResults } from '../store';
+import { getType, getSeason, getNumberOfLotteryPicks, getNumberOfSimulations, fetchSimulationResults, fetchTeamRecords } from '../store';
 
 const styles = theme => ({
   root: {
@@ -96,6 +96,7 @@ const mapDispatch = (dispatch) => {
     },
     handleSeason: (e) => {
       dispatch(getSeason(e.target.value));
+      dispatch(fetchTeamRecords(e.target.value));
     },
     handleNumPicks: (e) => {
       dispatch(getNumberOfLotteryPicks(e.target.value));

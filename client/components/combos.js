@@ -25,7 +25,6 @@ function Combos({ classes }) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Team Position in the Lottery</TableCell>
             <TableCell>Combinations</TableCell>
             <TableCell>Percentage</TableCell>
           </TableRow>
@@ -42,14 +41,6 @@ function Combos({ classes }) {
               )
             })
           }
-          {/* <SingleSpec
-            classes={classes}
-            handleChange={handleNumSims}
-            optionArr={[1, 1000, 10000, 100000, 1000000]}
-            paramName="numSims"
-            val={numSims}
-            label="Number of Simulations:"
-          /> */}
         </TableBody>
       </Table>
     </FormGroup>
