@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { Record } = require('../db/models');
-const simulate = require('../../utilities/app');
+const runSimulations = require('../../simulate/runSimulations');
 
 module.exports = router
 
@@ -11,6 +11,8 @@ router.get('/', (req, res, next) => {
       season
     }
   })
-    .then(seasonData => res.json(simulate(seasonData, numSims, combos, numPicks)))
+    .then((seasonData) => {
+      res.json(runSimulations(seasonData, numSims, combos, numPicks, type))
+    })
     .catch(next);
 });

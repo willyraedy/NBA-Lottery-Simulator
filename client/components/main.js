@@ -53,5 +53,5 @@ export default connect(mapState, mapDispatch)(Main)
  * PROP TYPES
  */
 Main.propTypes = {
-  started: PropTypes.bool.isRequired,
+  started: PropTypes.bool,
 }

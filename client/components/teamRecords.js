@@ -76,5 +76,5 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(TeamRecords));
  */
 TeamRecords.propTypes = {
   classes: PropTypes.object.isRequired,
-  teamRecords: PropTypes.object.isRequired,
+  teamRecords: PropTypes.array.isRequired,
 };

@@ -1,16 +1,16 @@
 function adjustTies(arrOfTeams, originalCombos) {
-  let adjustedCombos = originalCombos;
+  const adjustedCombos = originalCombos;
 
-  for (var curRank = 1; curRank <= originalCombos.length; curRank++) {
+  for (let curRank = 1; curRank <= originalCombos.length; curRank++) {
     let numberOfTiedTeams = 0;
-    arrOfTeams.forEach(team => {
+    arrOfTeams.forEach((team) => {
       if (team.rank === curRank) numberOfTiedTeams++;
     });
 
     if (numberOfTiedTeams > 1) {
-      let curIdx = curRank - 1;
-      let lastIdx = curIdx + numberOfTiedTeams;
-      let totalCombosForAllTiedTeams = adjustedCombos.slice(curIdx, lastIdx)
+      const curIdx = curRank - 1;
+      const lastIdx = curIdx + numberOfTiedTeams;
+      const totalCombosForAllTiedTeams = adjustedCombos.slice(curIdx, lastIdx)
         .reduce((a, b) => a + b);
       adjustedCombos[curIdx] = [totalCombosForAllTiedTeams, numberOfTiedTeams];
     }
@@ -18,11 +18,10 @@ function adjustTies(arrOfTeams, originalCombos) {
   return adjustedCombos;
 }
 
-function assignCombo (team, combos) {
+function assignCombo(team, combos) {
   if (!team.rank) {
     team.combinations = null;
-  }
-  else if (Array.isArray(combos[team.rank - 1])) {
+  } else if (Array.isArray(combos[team.rank - 1])) {
     let [totalCombosRemaining, numberOfTiedTeamsRemaining] = combos[team.rank - 1];
     team.combinations = Math.ceil(totalCombosRemaining / numberOfTiedTeamsRemaining);
     combos[team.rank - 1] = [totalCombosRemaining - team.combinations, --numberOfTiedTeamsRemaining];
@@ -32,7 +31,7 @@ function assignCombo (team, combos) {
   return team;
 }
 
-function assignAllCombos (arrOfTeams, originalCombos) {
+function assignAllCombos(arrOfTeams, originalCombos) {
   const specificCombos = adjustTies(arrOfTeams, originalCombos);
   return arrOfTeams.map(team => assignCombo(team, specificCombos));
 }

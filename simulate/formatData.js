@@ -1,12 +1,12 @@
 function createArrOfTeams(yearObj) {
-  let result = [];
-  Object.keys(yearObj.dataValues).slice(1).forEach(key => {
-    let obj = {
+  const result = [];
+  Object.keys(yearObj.dataValues).slice(1).forEach((key) => {
+    const obj = {
       team: key,
       losses: yearObj[key] || null,
-    }
+    };
     result.push(obj)
-  })
+  });
   return result;
 }
 
