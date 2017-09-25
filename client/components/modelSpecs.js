@@ -111,7 +111,7 @@ const mapState = (state) => {
     max: state.max,
     shift: state.shift,
     slope: state.slope,
-  }
+  };
 };
 
 const mapDispatch = (dispatch) => {
@@ -141,7 +141,7 @@ const mapDispatch = (dispatch) => {
     handleSlope: (e) => {
       dispatch(getSlope(e.target.value));
     },
-  }
+  };
 };
 
 export default withStyles(styles)(connect(mapState, mapDispatch)(ModelSpecs));
