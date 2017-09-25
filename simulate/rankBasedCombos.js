@@ -32,6 +32,9 @@ function assignCombo(team, combos) {
 }
 
 function assignAllCombos(arrOfTeams, originalCombos) {
+  // combos come through query as string, need to coerce to strings
+  originalCombos = originalCombos.map(combo => +combo);
+
   const specificCombos = adjustTies(arrOfTeams, originalCombos);
   return arrOfTeams.map(team => assignCombo(team, specificCombos));
 }

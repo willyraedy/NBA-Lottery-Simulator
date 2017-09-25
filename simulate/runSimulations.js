@@ -2,20 +2,8 @@ const createArrOfTeams = require('./formatData');
 const addRank = require('./addRank');
 const assignProbabilities = require('./assignProbabilities');
 
-const assignCombos = function (modelName, teamDataArr, combos) {
-  // combos come through query as string, need to coerce to strings
-  combos = combos.map(combo => +combo);
-
-  let comboFunc;
-  switch (modelName) {
-    case 'Rank':
-      comboFunc = require('./rankBasedCombos');
-      break;
-    default:
-      throw new Error('Unrecognized model type');
-  }
-  return comboFunc(teamDataArr, combos);
-};
+const assignCombosByRank = require('./rankBasedCombos');
+const assignCombosByRecord = require('./recordBasedCombos');
 
 const calculateTotalFirstPickCombos = function (teamDataArr) {
   return teamDataArr.reduce((totalCombos, teamObj) => totalCombos + teamObj.combinations, 0);
@@ -28,12 +16,18 @@ const assignAllFirstPickProbabilities = function (modelResults, teamDataArr, tot
   });
 };
 
-const runSimulations = function (yearObj, numSims, combos, numPicks, modelName) {
-  const formattedTeamData = addRank(createArrOfTeams(yearObj));
-  const teamsWithCombos = assignCombos(modelName, formattedTeamData, combos);
+const runSimulations = function (params) {
+  const { season, numSims, combos, numPicks, type, max, shift, slope } = params;
+  const formattedTeamData = addRank(createArrOfTeams(season));
+
+  let teamsWithCombos;
+  if (type === 'Rank') teamsWithCombos = assignCombosByRank(formattedTeamData, combos);
+  else if (type === 'Record') teamsWithCombos = assignCombosByRecord(formattedTeamData, max, shift, slope);
+  else throw new Error('Unrecognized model type');
+  console.log('Teams with combos: ', teamsWithCombos);
   const totalCombos = calculateTotalFirstPickCombos(teamsWithCombos);
   const teamsWithProbs = assignAllFirstPickProbabilities(teamsWithCombos, formattedTeamData, totalCombos);
   return assignProbabilities(formattedTeamData, teamsWithProbs, numPicks, numSims, totalCombos);
-}
+};
 
 module.exports = runSimulations;

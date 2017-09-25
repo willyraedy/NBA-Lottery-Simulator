@@ -91,7 +91,7 @@ function ModelSpecs({
           />
         </TableBody>
       </Table>
-      <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max })}>
+      <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
         Simulate
       </Button>
     </FormGroup>
