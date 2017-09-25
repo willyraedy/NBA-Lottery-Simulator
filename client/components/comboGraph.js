@@ -6,6 +6,8 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 
 import generateArray from './utils/arrayCreator';
+import createTeamRecordArr from './utils/createTeamRecordArr';
+import createDataPoints from './utils/createDataPoints';
 
 const styles = theme => ({
   graphBox: {
@@ -15,44 +17,67 @@ const styles = theme => ({
 });
 
 class ComboGraph extends React.Component {
-  constructor() {
-    super()
-  }
 
   componentDidMount() {
-    const brd = JXG.JSXGraph.initBoard('jxgbox', { axis: true, boundingbox: [0, 300, 72, 0] });
-    // brd.suspendUpdate();
-    // const a = brd.create('slider', [[50,290], [60,290], [0,0.4,1]], {name:'a'});
-    // const b = brd.create('slider', [[50,275], [60,275], [0,20,40]], {name:'b'});
-    // const A = brd.create('slider', [[50,260], [60,260], [100,250,250]], {name:'A'});
+    Highcharts.chart('container', this.props.options);
+  }
 
-    // const c = brd.create('functiongraph', [function (x) { return A.value() * (1 / (1 + Math.exp(-((a.value() * x) - b.value())))); }], { strokeColor: '#aa2233', strokeWidth: 3 });
-    // const c = brd.create('functiongraph', [function (x) { return 250 * (1 / (1 + Math.exp(x))); }], { strokeColor: '#aa2233', strokeWidth: 3 });
-    // brd.unsuspendUpdate();
-
-    brd.suspendUpdate();
-    var slope = brd.create('slider',[[50,290],[60,290],[0,0.4,1]],{name:'slope'});
-    var shift = brd.create('slider',[[50,270],[60,270],[0,20,40]],{name:'shift'});
-
-    var c = brd.create('curve',[
-              function(t){return t;},
-              function(t){return 250 * (1 / (1+ Math.exp((slope.Value() * t) - shift.Value())));},
-              ],{strokeColor:'#aa2233',strokeWidth:3});
-    brd.unsuspendUpdate();
+  componentDidUpdate() {
+    Highcharts.chart('container', this.props.options);
   }
 
   render() {
     return (
-      <div id="jxgbox" className="jxgbox" style={{ width: '700px', height: '500px' }} />
+      <div id="container" style={{ width: '100%', height: '700px' }} />
     );
   }
 }
 
 const mapState = (state) => {
+  const dataPoints = createDataPoints(createTeamRecordArr(state.teamRecords), state.max, state.slope, state.shift);
   return {
-    combos: state.combos,
-  }
-}
+    options: {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text: 'Lottery Pick Distribution'
+      },
+      subtitle: {
+        text: 'Smooth'
+      },
+      xAxis: {
+        title: {
+          text: 'Wins'
+        },
+        minPadding: 0.05,
+        maxPadding: 0.05,
+      },
+      yAxis: {
+        title: {
+          text: 'Lottery Combinations'
+        }
+      },
+      plotOptions: {
+        spline: {
+          enableMouseTracking: true,
+        }
+      },
+      tooltip: {
+        headerFormat: '<b>{point.name}</b><br/>',
+        pointFormat: '{point.name}: {point.x} wins, {point.y} combos'
+      },
+      series: [{
+        name: 'Custom Model',
+        marker: {
+          symbol: 'square',
+          enabled: true,
+        },
+        data: dataPoints,
+      }]
+    },
+  };
+};
 
 const mapDispatch = null;
 
@@ -60,4 +85,36 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(ComboGraph));
 
 ComboGraph.propTypes = {
   classes: PropTypes.object.isRequired,
+  dataPoints: PropTypes.array.isRequired,
 };
+
+
+// {
+//   x: {
+// name: '$$$$$$$$$$$$$$$',
+// ticks: {
+//   label: {
+//       visible: 'inherit',
+//       anchorX: 'middle',
+//       anchorY: 'top',
+//       fontSize: 12,
+//       offset: [0, -3]
+//   },
+//   drawZero: false,
+//   visible: 'inherit'
+// }
+// },
+// y: {
+//   name: 'y',
+//   ticks: {
+//       label: {
+//           visible: 'inherit',
+//           anchorX: 'right',
+//           anchorY: 'middle',
+//           fontSize: 12,
+//           offset: [-6, 0]
+//       },
+//       drawZero: false,
+//       visible: 'inherit'
+//   }
+// }
