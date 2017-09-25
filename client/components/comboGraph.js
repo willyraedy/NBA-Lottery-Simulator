@@ -84,8 +84,7 @@ const mapDispatch = null;
 export default withStyles(styles)(connect(mapState, mapDispatch)(ComboGraph));
 
 ComboGraph.propTypes = {
-  classes: PropTypes.object.isRequired,
-  dataPoints: PropTypes.array.isRequired,
+  options: PropTypes.object.isRequired,
 };
 
 

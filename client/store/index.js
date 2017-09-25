@@ -9,8 +9,11 @@ import season from './season';
 import numPicks from './numPicks';
 import numSims from './numSims';
 import teamRecords from './teamRecords';
+import max from './max';
+import slope from './slope';
+import shift from './shift';
 
-const reducer = combineReducers({ error, results, type, combos, season, numPicks, numSims, teamRecords });
+const reducer = combineReducers({ error, results, type, combos, season, numPicks, numSims, teamRecords, max, shift, slope });
 const middleware = applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }));
 const store = createStore(reducer, middleware);
 
@@ -23,3 +26,6 @@ export * from './season';
 export * from './numPicks';
 export * from './numSims';
 export * from './teamRecords';
+export * from './max';
+export * from './slope';
+export * from './shift';

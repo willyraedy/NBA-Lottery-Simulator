@@ -32,11 +32,11 @@ function SingleSpec({ classes, handleChange, optionArr, val, label }) {
             input={<Input onChange={handleChange} id={label} />}
           >
             {
-              optionArr.map((option) => {
+              optionArr.map((option, i) => {
                 if (option === 'custom') {
-                  return (<MenuItem key={option} value={option}>{option}</MenuItem>)
+                  return (<MenuItem key={i} value={option}>{option}</MenuItem>)
                 }
-                return (<MenuItem key={option} value={option}>{option}</MenuItem>)
+                return (<MenuItem key={i} value={option}>{option}</MenuItem>)
               })
             }
           </Select>
