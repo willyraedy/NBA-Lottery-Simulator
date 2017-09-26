@@ -4,8 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Table, TableBody, TableCell, TableHead, TableRow, FormGroup, Button, Input } from 'material-ui';
-import Paper from 'material-ui/Paper';
+import { Table, TableBody, TableCell, TableHead, TableRow, FormGroup } from 'material-ui';
 
 import SingleCombo from './singleCombo';
 
@@ -50,8 +49,8 @@ function Combos({ classes }) {
 const mapState = (state) => {
   return {
     combos: state.combos,
-  }
-}
+  };
+};
 
 const mapDispatch = null;
 

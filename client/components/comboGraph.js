@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 
-import generateArray from './utils/arrayCreator';
 import createTeamRecordArr from './utils/createTeamRecordArr';
 import createDataPoints from './utils/createDataPoints';
 
@@ -86,34 +85,3 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(ComboGraph));
 ComboGraph.propTypes = {
   options: PropTypes.object.isRequired,
 };
-
-
-// {
-//   x: {
-// name: '$$$$$$$$$$$$$$$',
-// ticks: {
-//   label: {
-//       visible: 'inherit',
-//       anchorX: 'middle',
-//       anchorY: 'top',
-//       fontSize: 12,
-//       offset: [0, -3]
-//   },
-//   drawZero: false,
-//   visible: 'inherit'
-// }
-// },
-// y: {
-//   name: 'y',
-//   ticks: {
-//       label: {
-//           visible: 'inherit',
-//           anchorX: 'right',
-//           anchorY: 'middle',
-//           fontSize: 12,
-//           offset: [-6, 0]
-//       },
-//       drawZero: false,
-//       visible: 'inherit'
-//   }
-// }

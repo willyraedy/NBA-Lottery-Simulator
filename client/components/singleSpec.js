@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Table, TableRow, TableCell, TableBody, FormControl, InputLabel, Select, MenuItem, Input, Button, FormGroup } from 'material-ui';
+import { TableRow, TableCell, FormControl, Select, MenuItem, Input } from 'material-ui';
 
 const styles = theme => ({
   root: {
@@ -63,7 +63,6 @@ SingleSpec.propTypes = {
   classes: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   optionArr: PropTypes.array.isRequired,
-  paramName: PropTypes.string.isRequired,
   val: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string.isRequired,
 };

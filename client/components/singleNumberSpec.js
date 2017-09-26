@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Table, TableRow, TableCell, TableBody, FormControl, InputLabel, Select, MenuItem, Input, Button, FormGroup } from 'material-ui';
+import { TableRow, TableCell, FormControl, Input } from 'material-ui';
 
 const styles = theme => ({
   root: {
@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-function SingleNumberSpec({ classes, handleChange, optionArr, val, label }) {
+function SingleNumberSpec({ classes, handleChange, val, label }) {
   return (
     <TableRow>
       <TableCell>{label}</TableCell>
@@ -54,8 +54,6 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(SingleNumberSpe
 SingleNumberSpec.propTypes = {
   classes: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
-  optionArr: PropTypes.array.isRequired,
-  paramName: PropTypes.string.isRequired,
-  val: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  val: PropTypes.number.isRequired,
   label: PropTypes.string.isRequired,
 };

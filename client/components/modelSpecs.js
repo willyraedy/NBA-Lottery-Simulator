@@ -7,7 +7,18 @@ import { Table, TableBody, Button, FormGroup } from 'material-ui';
 import SingleSpec from './singleSpec';
 import SingleNumberSpec from './singleNumberSpec';
 import generateArray from './utils/arrayCreator';
-import { getType, getSeason, getMax, getShift, getSlope, getNumberOfLotteryPicks, getNumberOfSimulations, fetchSimulationResults, fetchTeamRecords, getSimulationResults } from '../store';
+import {
+  getType,
+  getSeason,
+  getMax,
+  getShift,
+  getSlope,
+  getNumberOfLotteryPicks,
+  getNumberOfSimulations,
+  fetchSimulationResults,
+  fetchTeamRecords,
+  getSimulationResults,
+} from '../store';
 
 const styles = theme => ({
   root: {
@@ -93,7 +104,7 @@ function ModelSpecs({
             <Button color="primary" className={classes.button} onClick={adjustModel}>
             Adjust Model
             </Button>
-            <Button color="primary" className={classes.button} onClick={}>
+            <Button color="primary" className={classes.button} onClick={console.log}>
             Save and Share!
             </Button>
           </div> :
@@ -163,6 +174,7 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(ModelSpecs));
 ModelSpecs.propTypes = {
   classes: PropTypes.object.isRequired,
   simulateModel: PropTypes.func.isRequired,
+  adjustModel: PropTypes.func.isRequired,
   handleNumPicks: PropTypes.func.isRequired,
   handleNumSims: PropTypes.func.isRequired,
   handleSeason: PropTypes.func.isRequired,
@@ -178,4 +190,5 @@ ModelSpecs.propTypes = {
   max: PropTypes.number.isRequired,
   shift: PropTypes.number.isRequired,
   slope: PropTypes.number.isRequired,
+  results: PropTypes.array.isRequired,
 };

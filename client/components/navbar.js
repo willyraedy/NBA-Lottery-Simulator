@@ -8,7 +8,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
 
 const styles = theme => ({
   root: {
@@ -33,7 +32,7 @@ function Navbar(props) {
           <Typography type="title" color="inherit" className={classes.flex}>
             NBA LOTTERY SIMULATOR
           </Typography>
-          <Button color="contrast">START OVER</Button>
+          <Button color="contrast" href="/">START OVER</Button>
         </Toolbar>
       </AppBar>
     </div>

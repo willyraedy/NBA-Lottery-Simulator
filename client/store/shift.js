@@ -1,6 +1,6 @@
 const GET_SHIFT = 'GET_SHIFT';
 
-const defaultShift = 20;
+const defaultShift = 14;
 
 export const getShift = shift => ({ type: GET_SHIFT, shift });
 
