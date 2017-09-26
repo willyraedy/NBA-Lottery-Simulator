@@ -5,14 +5,18 @@ const GET_SIMULATION_RESULTS = 'GET_SIMULATION_RESULTS';
 
 const defaultResults = [];
 
-const getSimulationResults = results => ({ type: GET_SIMULATION_RESULTS, results });
+export const getSimulationResults = results => ({ type: GET_SIMULATION_RESULTS, results });
 
 export const fetchSimulationResults = paramObj => (dispatch) => {
   const { type, season, numPicks, numSims, combos, max, shift, slope } = paramObj;
   let pathString = '';
+
   if (type === 'Rank') pathString = `/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}&${createComboQueryString(combos)}`;
+
   else if (type === 'Record') pathString = `/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}&max=${max}&shift=${shift}&slope=${slope}`;
+
   else throw new Error('Wrong kind of model type') // better error handling here
+
   return axios.get(pathString)
     .then(res => res.data)
     .then((results) => {

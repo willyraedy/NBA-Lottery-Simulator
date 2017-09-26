@@ -7,7 +7,7 @@ import { Table, TableBody, Button, FormGroup } from 'material-ui';
 import SingleSpec from './singleSpec';
 import SingleNumberSpec from './singleNumberSpec';
 import generateArray from './utils/arrayCreator';
-import { getType, getSeason, getMax, getShift, getSlope, getNumberOfLotteryPicks, getNumberOfSimulations, fetchSimulationResults, fetchTeamRecords } from '../store';
+import { getType, getSeason, getMax, getShift, getSlope, getNumberOfLotteryPicks, getNumberOfSimulations, fetchSimulationResults, fetchTeamRecords, getSimulationResults } from '../store';
 
 const styles = theme => ({
   root: {
@@ -27,9 +27,10 @@ const styles = theme => ({
 });
 
 function ModelSpecs({
-  classes, type, season, numPicks, combos, numSims, max, shift, slope,
+  classes, results,
+  type, season, numPicks, combos, numSims, max, shift, slope,
   handleNumPicks, handleNumSims, handleSeason, handleType, handleMax, handleShift, handleSlope,
-  simulateModel }) {
+  simulateModel, adjustModel }) {
   return (
     <FormGroup>
       <Table>
@@ -86,9 +87,20 @@ function ModelSpecs({
           />
         </TableBody>
       </Table>
-      <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
-        Simulate
-      </Button>
+      {
+        results.length ?
+          <div>
+            <Button color="primary" className={classes.button} onClick={adjustModel}>
+            Adjust Model
+            </Button>
+            <Button color="primary" className={classes.button} onClick={}>
+            Save and Share!
+            </Button>
+          </div> :
+          <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
+            Simulate
+          </Button>
+      }
     </FormGroup>
   );
 }
@@ -106,13 +118,17 @@ const mapState = (state) => {
     max: state.max,
     shift: state.shift,
     slope: state.slope,
+    results: state.results,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     simulateModel: (params) => {
-      dispatch(fetchSimulationResults(params))
+      dispatch(fetchSimulationResults(params));
+    },
+    adjustModel: () => {
+      dispatch(getSimulationResults([]));
     },
     handleType: (e) => {
       dispatch(getType(e.target.value));
