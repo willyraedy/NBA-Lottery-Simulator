@@ -21,13 +21,14 @@ const styles = theme => ({
   },
 });
 
-function TeamRecords({ classes, teamRecords }) {
+function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slope, shift }) {
   return (
     <Table>
       <TableHead>
         <TableRow>
           <TableCell>Team Name</TableCell>
           <TableCell numeric>Record</TableCell>
+          <TableCell numeric>%</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -36,6 +37,12 @@ function TeamRecords({ classes, teamRecords }) {
             <TableRow key={i}>
               <TableCell>{teamObj.teamName}</TableCell>
               <TableCell >{teamObj.record}</TableCell>
+              {
+                type === 'Rank' ? <TableCell >{Math.floor(1000 * (combos[i] / totalCombos)) / 10}</TableCell> : null
+              }
+              {
+                type === 'Record' ? <TableCell >{Math.floor(1000 * (max * (1 / (1 + Math.exp((slope * (82 - teamObj.losses)) - shift))) / totalCombos)) / 10}</TableCell> : null
+              }
             </TableRow>
           );
         })}
@@ -62,6 +69,12 @@ const mapState = (state) => {
   });
   return {
     teamRecords: teamRecordArr.sort((team1, team2) => team2.losses - team1.losses).slice(0, 14),
+    combos: state.combos,
+    totalCombos: state.combos.reduce((a, b) => a + b, 0),
+    type: state.type,
+    max: state.max,
+    shift: state.shift,
+    slope: state.slope,
   };
 };
 
@@ -77,4 +90,6 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(TeamRecords));
 TeamRecords.propTypes = {
   classes: PropTypes.object.isRequired,
   teamRecords: PropTypes.array.isRequired,
+  combos: PropTypes.array.isRequired,
+  totalCombos: PropTypes.number.isRequired,
 };
