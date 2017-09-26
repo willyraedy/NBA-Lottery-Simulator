@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Table, TableBody, Button, FormGroup } from 'material-ui';
 
 import SingleSpec from './singleSpec';
+import SingleNumberSpec from './singleNumberSpec';
 import generateArray from './utils/arrayCreator';
 import { getType, getSeason, getMax, getShift, getSlope, getNumberOfLotteryPicks, getNumberOfSimulations, fetchSimulationResults, fetchTeamRecords } from '../store';
 
@@ -57,27 +58,21 @@ function ModelSpecs({
             val={numPicks}
             label="Number of Lottery Picks:"
           />
-          <SingleSpec
+          <SingleNumberSpec
             classes={classes}
             handleChange={handleMax}
-            optionArr={[100, 150, 200, 250, 300, 350]}
-            paramName="max"
             val={max}
             label="Max:"
           />
-          <SingleSpec
+          <SingleNumberSpec
             classes={classes}
             handleChange={handleShift}
-            optionArr={[10, 15, 20, 25, 30, 35]}
-            paramName="shift"
             val={shift}
             label="Shift:"
           />
-          <SingleSpec
+          <SingleNumberSpec
             classes={classes}
             handleChange={handleSlope}
-            optionArr={[0.1, 0.2, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]}
-            paramName="slope"
             val={slope}
             label="Slope:"
           />
