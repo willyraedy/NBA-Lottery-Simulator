@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Table, TableBody, Button, FormGroup, Paper } from 'material-ui';
+import { Table, TableBody, Button, FormGroup, Paper, Typography } from 'material-ui';
 
 import SingleSpec from './singleSpec';
 import SingleNumberSpec from './singleNumberSpec';
@@ -39,7 +39,7 @@ const styles = theme => ({
 
 function ModelSpecs({
   classes, results,
-  type, season, numPicks, combos, numSims, max, shift, slope,
+  type, season, numPicks, combos, numSims, max, shift, slope, savedModelId,
   handleNumPicks, handleNumSims, handleSeason, handleType, handleMax, handleShift, handleSlope,
   simulateModel, adjustModel, saveModel }) {
   return (
@@ -113,6 +113,10 @@ function ModelSpecs({
               Simulate
             </Button>
         }
+        {
+          savedModelId ?
+            <Typography type="body1">{`Link to share: [url here]/savedModel/${savedModelId}`}</Typography> : null
+        }
       </FormGroup>
     </Paper>
   );
@@ -132,6 +136,7 @@ const mapState = (state) => {
     shift: state.shift,
     slope: state.slope,
     results: state.results,
+    savedModelId: state.savedModelId,
   };
 };
 
@@ -196,5 +201,6 @@ ModelSpecs.propTypes = {
   max: PropTypes.number.isRequired,
   shift: PropTypes.number.isRequired,
   slope: PropTypes.number.isRequired,
+  savedModelId: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
 };
