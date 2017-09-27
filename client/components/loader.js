@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { CircularProgress } from 'material-ui/Progress';
 
 import Frame from './frame';
-import { getSavedLotteryModelSpecs } from '../store';
+import { getSavedLotteryModelSpecs, fetchSimulationResults } from '../store';
 
 const styles = theme => ({
   progress: {
@@ -18,19 +18,17 @@ const styles = theme => ({
 class Loader extends React.Component {
 
   componentDidMount() {
-    // call thunk
-    console.log('Saved model Id', this.props.savedModelId)
     if (!this.props.savedModelId) {
       const savedModelId = +this.props.match.params.id;
-      console.log('Url Id: ', savedModelId)
-      this.props.getData(savedModelId);
+      const { type, season, numPicks, combos, numSims, max, shift, slope } = this.props;
+      this.props.getData(savedModelId, { type, season, numPicks, combos, numSims, max, shift, slope });
     }
   }
 
   render() {
-    const { classes, savedModelId } = this.props;
+    const { classes, savedModelId, results } = this.props;
     return (
-      savedModelId ? <Frame /> : <CircularProgress className={classes.progress} />
+      savedModelId && results.length ? <Frame /> : <CircularProgress className={classes.progress} />
     );
   }
 }
@@ -41,14 +39,26 @@ class Loader extends React.Component {
 const mapState = (state) => {
   return {
     savedModelId: state.savedModelId,
+    type: state.type,
+    season: state.season,
+    numPicks: state.numPicks,
+    combos: state.combos,
+    numSims: state.numSims,
+    max: state.max,
+    shift: state.shift,
+    slope: state.slope,
+    results: state.results,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    getData: (id) => {
-      console.log('Fetch runs');
-      dispatch(getSavedLotteryModelSpecs(id));
+    getData: (id, params) => {
+      dispatch(getSavedLotteryModelSpecs(id))
+        .then(() => {
+          dispatch(fetchSimulationResults(params));
+        })
+        .catch(console.error);
     },
   };
 };

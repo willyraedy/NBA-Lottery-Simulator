@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { Table, TableBody, Button, FormGroup, Paper, Typography } from 'material-ui';
 
+import history from '../history';
 import SingleSpec from './singleSpec';
 import SingleNumberSpec from './singleNumberSpec';
 import generateArray from './utils/arrayCreator';
@@ -19,6 +20,7 @@ import {
   fetchTeamRecords,
   getSimulationResults,
   postSavedLotteryModelSpecs,
+  getModelId,
 } from '../store';
 
 const styles = theme => ({
@@ -147,6 +149,8 @@ const mapDispatch = (dispatch) => {
     },
     adjustModel: () => {
       dispatch(getSimulationResults([]));
+      dispatch(getModelId(null));
+      history.push('/');
     },
     saveModel: (params) => {
       dispatch(postSavedLotteryModelSpecs(params));

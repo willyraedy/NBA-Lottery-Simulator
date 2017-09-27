@@ -21,13 +21,14 @@ const styles = theme => ({
   },
 });
 
-function SingleSpec({ classes, handleChange, optionArr, val, label }) {
+function SingleSpec({ classes, handleChange, optionArr, val, label, results }) {
   return (
     <TableRow>
       <TableCell>{label}</TableCell>
       <TableCell>
         <FormControl className={classes.formControl}>
           <Select
+            disabled={!!results.length}
             value={val}
             input={<Input onChange={handleChange} id={label} />}
           >
@@ -50,7 +51,11 @@ function SingleSpec({ classes, handleChange, optionArr, val, label }) {
 /**
  * CONTAINER
  */
-const mapState = null;
+const mapState = (state) => {
+  return {
+    results: state.results,
+  }
+};
 
 const mapDispatch = null;
 

@@ -20,7 +20,7 @@ export const postSavedLotteryModelSpecs = paramObj => (dispatch) => {
   return axios.post('/api/save', paramObj)
     .then(res => res.data)
     .then((results) => {
-      dispatch(getModelId(results));
+      return dispatch(getModelId(results));
     })
     .catch(addError);
 }

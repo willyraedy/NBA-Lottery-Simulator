@@ -21,13 +21,14 @@ const styles = theme => ({
   },
 });
 
-function SingleNumberSpec({ classes, handleChange, val, label }) {
+function SingleNumberSpec({ classes, handleChange, val, label, results }) {
   return (
     <TableRow>
       <TableCell>{label}</TableCell>
       <TableCell>
         <FormControl className={classes.formControl}>
           <Input
+            disabled={!!results.length}
             type="number"
             defaultValue={val}
             onChange={handleChange}
@@ -42,7 +43,11 @@ function SingleNumberSpec({ classes, handleChange, val, label }) {
 /**
  * CONTAINER
  */
-const mapState = null;
+const mapState = (state) => {
+  return {
+    results: state.results,
+  }
+};
 
 const mapDispatch = null;
 
