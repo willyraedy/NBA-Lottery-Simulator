@@ -28,11 +28,6 @@ const styles = theme => ({
 });
 
 class Frame extends React.Component {
-
-  componentDidMount() {
-    console.log('Frame Props', this.props)
-  }
-
   render() {
     const { classes, results, type } = this.props;
     return (

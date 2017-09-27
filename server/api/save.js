@@ -3,12 +3,20 @@ const { LotteryModel } = require('../db/models')
 
 module.exports = router
 
+router.get('/', (req, res, next) => {
+  const id = +req.query.id;
+  LotteryModel.findById(id)
+    .then(modelSpecs => res.json(modelSpecs))
+    .catch(next);
+});
+
 router.post('/', (req, res, next) => {
   const { type, season, numPicks, numSims } = req.body;
   if (type === 'Rank') {
     const { combos } = req.body;
     LotteryModel.findOrCreate({
       where: {
+        type,
         season,
         numPicks,
         numSims,
@@ -16,7 +24,6 @@ router.post('/', (req, res, next) => {
       }
     })
       .then(([createdModel, created]) => {
-        console.log(createdModel.id)
         res.json(createdModel.id)
       })
       .catch(next);
@@ -24,6 +31,7 @@ router.post('/', (req, res, next) => {
     const { max, shift, slope } = req.body;
     LotteryModel.findOrCreate({
       where: {
+        type,
         season,
         numPicks,
         numSims,

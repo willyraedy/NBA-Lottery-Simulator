@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { CircularProgress } from 'material-ui/Progress';
 
 import Frame from './frame';
-import { fetchSavedLotteryModelSpecs } from '../store';
+import { getSavedLotteryModelSpecs } from '../store';
 
 const styles = theme => ({
   progress: {
@@ -19,9 +19,10 @@ class Loader extends React.Component {
 
   componentDidMount() {
     // call thunk
+    console.log('Saved model Id', this.props.savedModelId)
     if (!this.props.savedModelId) {
-      // get id
       const savedModelId = +this.props.match.params.id;
+      console.log('Url Id: ', savedModelId)
       this.props.getData(savedModelId);
     }
   }
@@ -46,7 +47,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getData: (id) => {
-      dispatch(fetchSavedLotteryModelSpecs(id));
+      console.log('Fetch runs');
+      dispatch(getSavedLotteryModelSpecs(id));
     },
   };
 };
@@ -59,4 +61,5 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(Loader));
 Loader.propTypes = {
   classes: PropTypes.object.isRequired,
   savedModelId: PropTypes.number.isRequired,
+  getData: PropTypes.func.isRequired,
 };

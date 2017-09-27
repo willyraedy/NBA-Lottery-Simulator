@@ -2,6 +2,10 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const RankModels = db.define('lotteryModels', {
+  type: {
+    type: Sequelize.ENUM('Rank', 'Record'),
+    allowNull: false
+  },
   season: {
     type: Sequelize.INTEGER,
     allowNull: false

@@ -1,5 +1,14 @@
 import axios from 'axios';
 import { addError } from './error';
+import {
+  getNumberOfSimulations,
+  getNumberOfLotteryPicks,
+  getSeason,
+  getShift,
+  getSlope,
+  getMax,
+  getType,
+} from './';
 
 const GET_SAVED_MODEL_ID = 'GET_SAVED_MODEL_ID';
 
@@ -7,11 +16,29 @@ const defaultId = null;
 
 export const getModelId = id => ({ type: GET_SAVED_MODEL_ID, id });
 
-export const fetchSavedLotteryModelSpecs = paramObj => (dispatch) => {
+export const postSavedLotteryModelSpecs = paramObj => (dispatch) => {
   return axios.post('/api/save', paramObj)
     .then(res => res.data)
     .then((results) => {
       dispatch(getModelId(results));
+    })
+    .catch(addError);
+}
+
+export const getSavedLotteryModelSpecs = modelId => (dispatch) => {
+  return axios.get(`/api/save?id=${modelId}`)
+    .then(res => res.data)
+    .then((results) => {
+      // update the entire store
+      const { season, shift, slope, numSims, numPicks, max, id, type } = results;
+      dispatch(getModelId(id))
+      dispatch(getNumberOfLotteryPicks(numPicks));
+      dispatch(getNumberOfSimulations(numSims));
+      dispatch(getSeason(season));
+      dispatch(getShift(shift));
+      dispatch(getSlope(slope));
+      dispatch(getMax(max));
+      dispatch(getType(type));
     })
     .catch(addError);
 }

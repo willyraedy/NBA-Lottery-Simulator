@@ -18,7 +18,7 @@ import {
   fetchSimulationResults,
   fetchTeamRecords,
   getSimulationResults,
-  fetchSavedLotteryModelSpecs,
+  postSavedLotteryModelSpecs,
 } from '../store';
 
 const styles = theme => ({
@@ -149,7 +149,7 @@ const mapDispatch = (dispatch) => {
       dispatch(getSimulationResults([]));
     },
     saveModel: (params) => {
-      dispatch(fetchSavedLotteryModelSpecs(params));
+      dispatch(postSavedLotteryModelSpecs(params));
     },
     handleType: (e) => {
       dispatch(getType(e.target.value));
@@ -201,6 +201,6 @@ ModelSpecs.propTypes = {
   max: PropTypes.number.isRequired,
   shift: PropTypes.number.isRequired,
   slope: PropTypes.number.isRequired,
-  savedModelId: PropTypes.number.isRequired,
+  savedModelId: PropTypes.number,
   results: PropTypes.array.isRequired,
 };
