@@ -1,32 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { Router } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
+// import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import history from '../history';
 
-import Navbar from './navbar';
+
 import Frame from './frame';
 
 /**
  * COMPONENT
  */
 
-const theme = createMuiTheme();
-
-function Main() {
+const Main = () => {
   return (
-    <MuiThemeProvider theme={theme}>
-      <div>
-        <Navbar />
-        <Frame />
-      </div>
-    </MuiThemeProvider>
+    <Router history={history}>
+      <Switch>
+        <Route path="/savedModel/:id" component={Frame} />
+        <Route path="/" component={Frame} />
+      </Switch>
+    </Router>
   );
 }
 
 /**
  * CONTAINER
  */
-const mapState = null
+const mapState = null;
 
 const mapDispatch = null;
 

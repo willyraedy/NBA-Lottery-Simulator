@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Table, TableBody, Button, FormGroup } from 'material-ui';
+import { Table, TableBody, Button, FormGroup, Paper } from 'material-ui';
 
 import SingleSpec from './singleSpec';
 import SingleNumberSpec from './singleNumberSpec';
@@ -18,6 +18,7 @@ import {
   fetchSimulationResults,
   fetchTeamRecords,
   getSimulationResults,
+  fetchSavedLotteryModelSpecs,
 } from '../store';
 
 const styles = theme => ({
@@ -26,10 +27,9 @@ const styles = theme => ({
     marginTop: 30,
   },
   paper: {
-    padding: 16,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: '80vh',
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
   },
   myContainer: {
     paddingRight: 40,
@@ -41,78 +41,80 @@ function ModelSpecs({
   classes, results,
   type, season, numPicks, combos, numSims, max, shift, slope,
   handleNumPicks, handleNumSims, handleSeason, handleType, handleMax, handleShift, handleSlope,
-  simulateModel, adjustModel }) {
+  simulateModel, adjustModel, saveModel }) {
   return (
-    <FormGroup>
-      <Table>
-        <TableBody>
-          <SingleSpec
-            classes={classes}
-            handleChange={handleType}
-            optionArr={['Rank', 'Record']}
-            paramName="type"
-            val={type}
-            label="Type:"
-          />
-          <SingleSpec
-            classes={classes}
-            handleChange={handleSeason}
-            optionArr={generateArray(1968, 2015)}
-            paramName="season"
-            val={season}
-            label="Season:"
-          />
-          <SingleSpec
-            classes={classes}
-            handleChange={handleNumPicks}
-            optionArr={generateArray(1, 10)}
-            paramName="numPicks"
-            val={numPicks}
-            label="Number of Lottery Picks:"
-          />
-          <SingleNumberSpec
-            classes={classes}
-            handleChange={handleMax}
-            val={max}
-            label="Max:"
-          />
-          <SingleNumberSpec
-            classes={classes}
-            handleChange={handleShift}
-            val={shift}
-            label="Shift:"
-          />
-          <SingleNumberSpec
-            classes={classes}
-            handleChange={handleSlope}
-            val={slope}
-            label="Slope:"
-          />
-          <SingleSpec
-            classes={classes}
-            handleChange={handleNumSims}
-            optionArr={[1, 1000, 10000, 100000, 1000000]}
-            paramName="numSims"
-            val={numSims}
-            label="Number of Simulations:"
-          />
-        </TableBody>
-      </Table>
-      {
-        results.length ?
-          <div>
-            <Button color="primary" className={classes.button} onClick={adjustModel}>
-            Adjust Model
+    <Paper className={classes.paper}>
+      <FormGroup>
+        <Table>
+          <TableBody>
+            <SingleSpec
+              classes={classes}
+              handleChange={handleType}
+              optionArr={['Rank', 'Record']}
+              paramName="type"
+              val={type}
+              label="Type:"
+            />
+            <SingleSpec
+              classes={classes}
+              handleChange={handleSeason}
+              optionArr={generateArray(1968, 2015)}
+              paramName="season"
+              val={season}
+              label="Season:"
+            />
+            <SingleSpec
+              classes={classes}
+              handleChange={handleNumPicks}
+              optionArr={generateArray(1, 10)}
+              paramName="numPicks"
+              val={numPicks}
+              label="Number of Lottery Picks:"
+            />
+            <SingleNumberSpec
+              classes={classes}
+              handleChange={handleMax}
+              val={max}
+              label="Max:"
+            />
+            <SingleNumberSpec
+              classes={classes}
+              handleChange={handleShift}
+              val={shift}
+              label="Shift:"
+            />
+            <SingleNumberSpec
+              classes={classes}
+              handleChange={handleSlope}
+              val={slope}
+              label="Slope:"
+            />
+            <SingleSpec
+              classes={classes}
+              handleChange={handleNumSims}
+              optionArr={[1, 1000, 10000, 100000, 1000000]}
+              paramName="numSims"
+              val={numSims}
+              label="Number of Simulations:"
+            />
+          </TableBody>
+        </Table>
+        {
+          results.length ?
+            <div>
+              <Button color="primary" className={classes.button} onClick={adjustModel}>
+              Adjust Model
+              </Button>
+              <Button color="primary" className={classes.button} onClick={() => saveModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
+              Save and Share!
+              </Button>
+            </div> :
+            <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
+              Simulate
             </Button>
-            <Button color="primary" className={classes.button} onClick={console.log}>
-            Save and Share!
-            </Button>
-          </div> :
-          <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
-            Simulate
-          </Button>
-      }
-    </FormGroup>
+        }
+      </FormGroup>
+    </Paper>
   );
 }
 
@@ -140,6 +142,9 @@ const mapDispatch = (dispatch) => {
     },
     adjustModel: () => {
       dispatch(getSimulationResults([]));
+    },
+    saveModel: (params) => {
+      dispatch(fetchSavedLotteryModelSpecs(params));
     },
     handleType: (e) => {
       dispatch(getType(e.target.value));
@@ -175,6 +180,7 @@ ModelSpecs.propTypes = {
   classes: PropTypes.object.isRequired,
   simulateModel: PropTypes.func.isRequired,
   adjustModel: PropTypes.func.isRequired,
+  saveModel: PropTypes.func.isRequired,
   handleNumPicks: PropTypes.func.isRequired,
   handleNumSims: PropTypes.func.isRequired,
   handleSeason: PropTypes.func.isRequired,

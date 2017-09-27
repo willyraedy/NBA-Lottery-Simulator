@@ -27,27 +27,28 @@ function ModelResults({ classes, results }) {
             <TableCell numeric>Record</TableCell>
             <TableCell numeric>First Pick Percentage</TableCell>
             {
-              generateArray(1, results.length).map(num => <TableCell numeric>{num}</TableCell>)
+              generateArray(1, results.length).map(num => <TableCell key={num} numeric>{num}</TableCell>)
             }
           </TableRow>
         </TableHead>
         <TableBody>
-          {results.map((teamObj) => {
-            return (
-              <TableRow key={teamObj.id}>
-                <TableCell>{teamObj.team}</TableCell>
-                <TableCell >{`${82 - teamObj.losses} - ${teamObj.losses}`}</TableCell>
-                <TableCell >{Math.floor(teamObj.firstPickPercentage * 100) / 100}</TableCell>
-                {
-                  teamObj.percentages.map((pickPercentage, i) => {
-                    return (
-                      <TableCell key={i} numeric>{ Math.floor(pickPercentage * 100) / 100 }</TableCell>
-                    )
-                  })
-                }
-              </TableRow>
-            );
-          })}
+          {
+            results.map((teamObj, i) => {
+              return (
+                <TableRow key={i}>
+                  <TableCell >{teamObj.team}</TableCell>
+                  <TableCell >{`${82 - teamObj.losses} - ${teamObj.losses}`}</TableCell>
+                  <TableCell >{Math.floor(teamObj.firstPickPercentage * 100) / 100}</TableCell>
+                  {
+                    teamObj.percentages.map((pickPercentage, i) => {
+                      return (
+                        <TableCell key={i} numeric>{ Math.floor(pickPercentage * 100) / 100 }</TableCell>
+                      )
+                    })
+                  }
+                </TableRow>
+              );
+            })}
         </TableBody>
       </Table>
     </Paper>
