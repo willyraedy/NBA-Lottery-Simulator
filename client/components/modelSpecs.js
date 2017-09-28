@@ -73,28 +73,32 @@ function ModelSpecs({
               val={numPicks}
               label="Number of Lottery Picks:"
             />
-            <SingleNumberSpec
-              classes={classes}
-              handleChange={handleMax}
-              val={max}
-              label="Max:"
-            />
-            <SingleNumberSpec
-              classes={classes}
-              handleChange={handleShift}
-              val={shift}
-              label="Shift:"
-            />
-            <SingleNumberSpec
-              classes={classes}
-              handleChange={handleSlope}
-              val={slope}
-              label="Slope:"
-            />
+            {
+              type === 'Record' ?
+                [
+                  <SingleNumberSpec
+                    classes={classes}
+                    handleChange={handleMax}
+                    val={max}
+                    label="Max:"
+                  />,
+                  <SingleNumberSpec
+                    classes={classes}
+                    handleChange={handleShift}
+                    val={shift}
+                    label="Shift:"
+                  />,
+                  <SingleNumberSpec
+                    classes={classes}
+                    handleChange={handleSlope}
+                    val={slope}
+                    label="Slope:"
+                  />] : null
+            }
             <SingleSpec
               classes={classes}
               handleChange={handleNumSims}
-              optionArr={[1, 1000, 10000, 100000, 1000000]}
+              optionArr={[1000, 10000, 100000, 1000000]}
               paramName="numSims"
               val={numSims}
               label="Number of Simulations:"
