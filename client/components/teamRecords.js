@@ -28,7 +28,7 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
         <TableRow>
           <TableCell>Team Name</TableCell>
           <TableCell numeric>Record</TableCell>
-          <TableCell numeric>%</TableCell>
+          <TableCell numeric>1st Pick %</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

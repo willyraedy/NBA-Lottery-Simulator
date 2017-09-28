@@ -19,39 +19,31 @@ const styles = theme => ({
 
 function ModelResults({ classes, results }) {
   return (
-    <Paper className={classes.paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Team Name</TableCell>
-            <TableCell numeric>Record</TableCell>
-            <TableCell numeric>First Pick Percentage</TableCell>
-            {
-              generateArray(1, results.length).map(num => <TableCell key={num} numeric>{num}</TableCell>)
-            }
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <Table>
+      <TableHead>
+        <TableRow>
           {
-            results.map((teamObj, i) => {
-              return (
-                <TableRow key={i}>
-                  <TableCell >{teamObj.team}</TableCell>
-                  <TableCell >{`${82 - teamObj.losses} - ${teamObj.losses}`}</TableCell>
-                  <TableCell >{Math.floor(teamObj.firstPickPercentage * 100) / 100}</TableCell>
-                  {
-                    teamObj.percentages.map((pickPercentage, i) => {
-                      return (
-                        <TableCell key={i} numeric>{ Math.floor(pickPercentage * 100) / 100 }</TableCell>
-                      )
-                    })
-                  }
-                </TableRow>
-              );
-            })}
-        </TableBody>
-      </Table>
-    </Paper>
+            generateArray(1, 14).map(num => <TableCell key={num} numeric>{num}</TableCell>)
+          }
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {
+          results.map((teamObj, i) => {
+            return (
+              <TableRow key={i}>
+                {
+                  teamObj.percentages.map((pickPercentage, i) => {
+                    return (
+                      <TableCell key={i} numeric>{ Math.floor(pickPercentage * 100) / 100 }</TableCell>
+                    )
+                  }).slice(0, 14)
+                }
+              </TableRow>
+            );
+          }).slice(0, 14)}
+      </TableBody>
+    </Table>
   );
 }
 

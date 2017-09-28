@@ -45,86 +45,87 @@ function ModelSpecs({
   handleNumPicks, handleNumSims, handleSeason, handleType, handleMax, handleShift, handleSlope,
   simulateModel, adjustModel, saveModel }) {
   return (
-    <Paper className={classes.paper}>
-      <FormGroup>
-        <Table>
-          <TableBody>
-            <SingleSpec
-              classes={classes}
-              handleChange={handleType}
-              optionArr={['Rank', 'Record']}
-              paramName="type"
-              val={type}
-              label="Type:"
-            />
-            <SingleSpec
-              classes={classes}
-              handleChange={handleSeason}
-              optionArr={generateArray(1968, 2015)}
-              paramName="season"
-              val={season}
-              label="Season:"
-            />
-            <SingleSpec
-              classes={classes}
-              handleChange={handleNumPicks}
-              optionArr={generateArray(1, 10)}
-              paramName="numPicks"
-              val={numPicks}
-              label="Number of Lottery Picks:"
-            />
-            {
-              type === 'Record' ?
-                [
-                  <SingleNumberSpec
-                    classes={classes}
-                    handleChange={handleMax}
-                    val={max}
-                    label="Max:"
-                  />,
-                  <SingleNumberSpec
-                    classes={classes}
-                    handleChange={handleShift}
-                    val={shift}
-                    label="Shift:"
-                  />,
-                  <SingleNumberSpec
-                    classes={classes}
-                    handleChange={handleSlope}
-                    val={slope}
-                    label="Slope:"
-                  />] : null
-            }
-            <SingleSpec
-              classes={classes}
-              handleChange={handleNumSims}
-              optionArr={[1000, 10000, 100000, 1000000]}
-              paramName="numSims"
-              val={numSims}
-              label="Number of Simulations:"
-            />
-          </TableBody>
-        </Table>
-        {
-          results.length ?
-            <div>
-              <Button color="primary" className={classes.button} onClick={adjustModel}>
+    <FormGroup>
+      <Table>
+        <TableBody>
+          <SingleSpec
+            classes={classes}
+            handleChange={handleType}
+            optionArr={['Rank', 'Record']}
+            paramName="type"
+            val={type}
+            label="Type:"
+          />
+          <SingleSpec
+            classes={classes}
+            handleChange={handleSeason}
+            optionArr={generateArray(1968, 2015)}
+            paramName="season"
+            val={season}
+            label="Season:"
+          />
+          <SingleSpec
+            classes={classes}
+            handleChange={handleNumPicks}
+            optionArr={generateArray(1, 10)}
+            paramName="numPicks"
+            val={numPicks}
+            label="Number of Lottery Picks:"
+          />
+          {
+            type === 'Record' ?
+              [
+                <SingleNumberSpec
+                  key={1}
+                  classes={classes}
+                  handleChange={handleMax}
+                  val={max}
+                  label="Max:"
+                />,
+                <SingleNumberSpec
+                  key={2}
+                  classes={classes}
+                  handleChange={handleShift}
+                  val={shift}
+                  label="Shift:"
+                />,
+                <SingleNumberSpec
+                  key={3}
+                  classes={classes}
+                  handleChange={handleSlope}
+                  val={slope}
+                  label="Slope:"
+                />] : null
+          }
+          <SingleSpec
+            classes={classes}
+            handleChange={handleNumSims}
+            optionArr={[1000, 10000, 100000, 1000000]}
+            paramName="numSims"
+            val={numSims}
+            label="Number of Simulations:"
+          />
+        </TableBody>
+      </Table>
+      {
+        results.length ?
+          <div>
+            <Button color="primary" className={classes.button} onClick={adjustModel}>
               Adjust Model
-              </Button>
-              <Button color="primary" className={classes.button} onClick={() => saveModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
-              Save and Share!
-              </Button>
-            </div> :
-            <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
-              Simulate
             </Button>
-        }
-        {
-          savedModelId ?
-            <Typography type="body1">{`Link to share: [url here]/savedModel/${savedModelId}`}</Typography> : null
-        }
-      </FormGroup>
-    </Paper>
+            <Button color="primary" className={classes.button} onClick={() => saveModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
+              Save and Share!
+            </Button>
+          </div> :
+          <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
+            Simulate
+          </Button>
+      }
+      {
+        savedModelId ?
+          <Typography type="body1">{`Link to share: [url here]/savedModel/${savedModelId}`}</Typography> : null
+      }
+    </FormGroup>
   );
 }
 

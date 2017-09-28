@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Card, Grid, CardContent } from 'material-ui';
+import { Paper, Grid } from 'material-ui';
 
 import Navbar from './navbar';
 import ModelSpecs from './modelSpecs';
@@ -20,77 +20,73 @@ const styles = theme => ({
     padding: 16,
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    width: '100%',
+    overflowX: 'auto',
   },
   myContainer: {
     paddingRight: 40,
     paddingLeft: 40,
   },
+  modelSpecs: {
+    justify: 'center',
+  }
 });
 
-class Frame extends React.Component {
-  render() {
-    const { classes, results, type } = this.props;
-    return (
-      <div>
-        <Navbar />
-        <div className={classes.root}>
-          <Grid container spacing={24} className={classes.myContainer}>
-            <Grid item xs={12} sm={4} md={3}>
-              <Card className={classes.paper}>
-                <CardContent>
-                  MODEL SPECS!!!!
-                  <ModelSpecs />
-                </CardContent>
-              </Card>
-            </Grid>
-            {
-              results.length ?
-                <Grid item xs={12} sm={8} md={9}>
-                  <Card className={classes.paper}>
-                    MODEL RESULTS
-                    <ModelResults />
-                  </Card>
-                </Grid> :
-                <Grid item xs={4} sm={3} md={3}>
-                  <Card className={classes.paper}>
-                    <CardContent>
-                      RECORDS GO HERE
-                      <TeamRecords />
-                    </CardContent>
-                  </Card>
-                </Grid>
-            }
-            {
-              !results.length && type === 'Rank' ?
-                <Grid item xs={8} sm={5} md={6}>
-                  <Card className={classes.paper}>
-                    <CardContent>
-                      CUSTOMIZE THE LOTTERY COMBINATIONS FOR EACH TEAM
-                      <Combos />
-                    </CardContent>
-                  </Card>
-                </Grid> : null
-            }
-            {
-              !results.length && type === 'Record' ?
-                <Grid item xs={8} sm={5} md={6}>
-                  <Card className={classes.paper}>
-                    GRAPH GOES HERE
-                    <ComboGraph />
-                  </Card>
-                </Grid> : null
-            }
+const Frame = ({ classes, results, type }) => {
+  return (
+    <div>
+      <Navbar />
+      <div className={classes.root}>
+        <Grid container spacing={40} className={classes.myContainer}>
+          <Grid item xs={12} sm={6} md={3} >
+            <Paper className={classes.paper}>
+              MODEL SPECS!!!!
+              <ModelSpecs />
+            </Paper>
           </Grid>
-        </div>
+          <Grid item xs={12} sm={6} md={3}>
+            <Paper className={classes.paper}>
+              RECORDS GO HERE
+              <TeamRecords />
+            </Paper>
+          </Grid>
+          {
+            results.length ?
+              <Grid item xs={12} sm={6} md={6}>
+                <Paper className={classes.paper}>
+                  SIMULATION RESULTS
+                  <ModelResults />
+                </Paper>
+              </Grid> : null
+          }
+          {
+            !results.length && type === 'Rank' ?
+              <Grid item xs={12} sm={6} md={3}>
+                <Paper className={classes.paper}>
+                  CUSTOMIZE THE LOTTERY COMBINATIONS FOR EACH TEAM
+                  <Combos />
+                </Paper>
+              </Grid> : null
+          }
+          {
+            !results.length && type === 'Record' ?
+              <Grid item xs={12} sm={6} md={6}>
+                <Paper className={classes.paper}>
+                  GRAPH GOES HERE
+                  <ComboGraph />
+                </Paper>
+              </Grid> : null
+          }
+        </Grid>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 /**
  * CONTAINER
  */
-const mapState = (state, ownProps) => {
+const mapState = (state) => {
   return {
     results: state.results,
     type: state.type,
