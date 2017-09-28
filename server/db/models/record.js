@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const mergeWith = require('lodash.mergewith');
 
 const Records = db.define('records', {
   season: {
@@ -37,6 +38,30 @@ const Records = db.define('records', {
   utah: Sequelize.INTEGER,
   washington: Sequelize.INTEGER,
 });
+
+Records.prototype.aggregateSeasons = function (numPrevSeasons) {
+  if (!numPrevSeasons) return this;
+  const instanceCopy = Object.assign({}, this.dataValues);
+  const promises = [];
+  for (let i = 1; i <= numPrevSeasons; i++) {
+    const promise = Records.findOne({
+      where: {
+        season: instanceCopy.season - i
+      }
+    });
+    promises.push(promise);
+  }
+  return Promise.all(promises)
+    .then((seasonArr) => {
+      return seasonArr.map(instance => instance.dataValues)
+    })
+    .then(seasonCopies => mergeWith(instanceCopy, ...seasonCopies, (objValue, srcValue) => {
+      if (objValue < 1000) {
+        return objValue + srcValue;
+      }
+      return objValue;
+    }));
+};
 
 Records.removeAttribute('createdAt');
 Records.removeAttribute('updatedAt');

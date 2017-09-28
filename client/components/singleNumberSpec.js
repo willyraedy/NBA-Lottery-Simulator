@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-function SingleNumberSpec({ classes, handleChange, val, label, results }) {
+function SingleNumberSpec({ classes, handleChange, val, label, results, step }) {
   return (
     <TableRow>
       <TableCell>{label}</TableCell>
@@ -29,8 +29,9 @@ function SingleNumberSpec({ classes, handleChange, val, label, results }) {
         <FormControl className={classes.formControl}>
           <Input
             disabled={!!results.length}
+            inputProps={{ step }}
             type="number"
-            defaultValue={val}
+            value={val}
             onChange={handleChange}
           />
         </FormControl>

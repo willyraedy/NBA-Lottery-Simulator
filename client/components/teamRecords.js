@@ -4,6 +4,9 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { Table, TableBody, TableCell, TableHead, TableRow } from 'material-ui';
 
+import createTeamRecordArr from './utils/createTeamRecordArr';
+import { logitFunc, calculatePercentage, roundToOneDecimal } from './utils/logitFunc';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -21,7 +24,7 @@ const styles = theme => ({
   },
 });
 
-function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slope, shift }) {
+function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slope, shift, totalGames }) {
   return (
     <Table>
       <TableHead>
@@ -41,7 +44,7 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
                 type === 'Rank' ? <TableCell >{Math.floor(1000 * (combos[i] / totalCombos)) / 10}</TableCell> : null
               }
               {
-                type === 'Record' ? <TableCell >{Math.floor(1000 * (max * (1 / (1 + Math.exp((slope * (82 - teamObj.losses)) - shift))) / totalCombos)) / 10}</TableCell> : null
+                type === 'Record' ? <TableCell >{roundToOneDecimal(calculatePercentage(logitFunc(max, slope, totalGames, teamObj.losses, shift), totalCombos))}</TableCell> : null
               }
             </TableRow>
           );
@@ -55,26 +58,15 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
  * CONTAINER
  */
 const mapState = (state) => {
-  const teamRecordArr = [];
-  Object.keys(state.teamRecords).forEach((teamName, i) => {
-    const losses = state.teamRecords[teamName];
-    if (i) {
-      teamRecordArr.push({
-        teamName,
-        record: `${82 - losses} - ${losses}`,
-        // what year did they start playing 82 games???????
-        losses,
-      });
-    }
-  });
   return {
-    teamRecords: teamRecordArr.sort((team1, team2) => team2.losses - team1.losses).slice(0, 14),
+    teamRecords: createTeamRecordArr(state.teamRecords, state.numSeasons),
     combos: state.combos,
     totalCombos: state.combos.reduce((a, b) => a + b, 0),
     type: state.type,
     max: state.max,
     shift: state.shift,
     slope: state.slope,
+    totalGames: (state.numSeasons + 1) * 82,
   };
 };
 

@@ -63,7 +63,7 @@ const Frame = ({ classes, results, type }) => {
             !results.length && type === 'Rank' ?
               <Grid item xs={12} sm={6} md={3}>
                 <Paper className={classes.paper}>
-                  CUSTOMIZE THE LOTTERY COMBINATIONS FOR EACH TEAM
+                  CUSTOMIZED LOTTERY COMBINATIONS
                   <Combos />
                 </Paper>
               </Grid> : null

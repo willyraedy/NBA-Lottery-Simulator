@@ -1,9 +1,11 @@
-export default function createDataPoints(teamRecords, max, slope, shift) {
+import { logitFunc } from './logitFunc';
+
+export default function createDataPoints(teamRecords, max, slope, shift, totalGames) {
   return teamRecords.map((teamRecordObj) => {
-    const wins = 82 - teamRecordObj.losses;
+    const wins = totalGames - teamRecordObj.losses;
     return {
       x: wins,
-      y: max * (1 / (1 + Math.exp((slope * wins) - shift))),
+      y: logitFunc(max, slope, totalGames, teamRecordObj.losses, shift),
       name: teamRecordObj.teamName,
     };
   });

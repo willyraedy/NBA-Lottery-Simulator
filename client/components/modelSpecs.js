@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Table, TableBody, Button, FormGroup, Paper, Typography } from 'material-ui';
+import { Table, TableBody, Button, FormGroup, Typography } from 'material-ui';
 
 import history from '../history';
 import SingleSpec from './singleSpec';
@@ -21,6 +21,7 @@ import {
   getSimulationResults,
   postSavedLotteryModelSpecs,
   getModelId,
+  getNumberOfSeasons,
 } from '../store';
 
 const styles = theme => ({
@@ -41,9 +42,10 @@ const styles = theme => ({
 
 function ModelSpecs({
   classes, results,
-  type, season, numPicks, combos, numSims, max, shift, slope, savedModelId,
-  handleNumPicks, handleNumSims, handleSeason, handleType, handleMax, handleShift, handleSlope,
-  simulateModel, adjustModel, saveModel }) {
+  type, season, numPicks, combos, numSims, numSeasons, max, shift, slope, savedModelId,
+  handleNumPicks, handleNumSims, handleSeason, handleType, handleMax, handleShift, handleSlope, handleNumSeasons,
+  simulateModel, adjustModel, saveModel,
+}) {
   return (
     <FormGroup>
       <Table>
@@ -58,11 +60,19 @@ function ModelSpecs({
           />
           <SingleSpec
             classes={classes}
-            handleChange={handleSeason}
+            handleChange={e => handleSeason(e, numSeasons)}
             optionArr={generateArray(1968, 2015)}
             paramName="season"
             val={season}
             label="Season:"
+          />
+          <SingleSpec
+            classes={classes}
+            handleChange={e => handleNumSeasons(e, season, shift, numSeasons, slope)}
+            optionArr={generateArray(0, 2)}
+            paramName="numSeasons"
+            val={numSeasons}
+            label="Number of Previous Seasons:"
           />
           <SingleSpec
             classes={classes}
@@ -77,6 +87,7 @@ function ModelSpecs({
               [
                 <SingleNumberSpec
                   key={1}
+                  step={10}
                   classes={classes}
                   handleChange={handleMax}
                   val={max}
@@ -84,6 +95,7 @@ function ModelSpecs({
                 />,
                 <SingleNumberSpec
                   key={2}
+                  step={0.5}
                   classes={classes}
                   handleChange={handleShift}
                   val={shift}
@@ -91,6 +103,7 @@ function ModelSpecs({
                 />,
                 <SingleNumberSpec
                   key={3}
+                  step={0.05}
                   classes={classes}
                   handleChange={handleSlope}
                   val={slope}
@@ -139,6 +152,7 @@ const mapState = (state) => {
     numPicks: state.numPicks,
     combos: state.combos,
     numSims: state.numSims,
+    numSeasons: state.numSeasons,
     max: state.max,
     shift: state.shift,
     slope: state.slope,
@@ -163,9 +177,9 @@ const mapDispatch = (dispatch) => {
     handleType: (e) => {
       dispatch(getType(e.target.value));
     },
-    handleSeason: (e) => {
+    handleSeason: (e, numSeasons) => {
       dispatch(getSeason(e.target.value));
-      dispatch(fetchTeamRecords(e.target.value));
+      dispatch(fetchTeamRecords(e.target.value, numSeasons));
     },
     handleNumPicks: (e) => {
       dispatch(getNumberOfLotteryPicks(e.target.value));
@@ -173,11 +187,20 @@ const mapDispatch = (dispatch) => {
     handleNumSims: (e) => {
       dispatch(getNumberOfSimulations(e.target.value));
     },
+    handleNumSeasons: (e, season, shift, numSeasons, slope) => {
+      dispatch(getNumberOfSeasons(e.target.value));
+      dispatch(fetchTeamRecords(season, e.target.value));
+      const difference = (e.target.value - numSeasons);
+      if (difference) {
+        dispatch(getShift(shift + (10 * difference)));
+        dispatch(getSlope(slope - (0.075 * difference)));
+      }
+    },
     handleMax: (e) => {
       dispatch(getMax(e.target.value));
     },
     handleShift: (e) => {
-      dispatch(getShift(e.target.value));
+      dispatch(getShift(+e.target.value));
     },
     handleSlope: (e) => {
       dispatch(getSlope(e.target.value));
@@ -197,6 +220,7 @@ ModelSpecs.propTypes = {
   saveModel: PropTypes.func.isRequired,
   handleNumPicks: PropTypes.func.isRequired,
   handleNumSims: PropTypes.func.isRequired,
+  handleNumSeasons: PropTypes.func.isRequired,
   handleSeason: PropTypes.func.isRequired,
   handleType: PropTypes.func.isRequired,
   handleMax: PropTypes.func.isRequired,
@@ -207,6 +231,7 @@ ModelSpecs.propTypes = {
   numPicks: PropTypes.number.isRequired,
   combos: PropTypes.array.isRequired,
   numSims: PropTypes.number.isRequired,
+  numSeasons: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   shift: PropTypes.number.isRequired,
   slope: PropTypes.number.isRequired,
