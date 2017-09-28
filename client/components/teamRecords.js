@@ -24,7 +24,7 @@ const styles = theme => ({
   },
 });
 
-function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slope, shift, totalGames }) {
+function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slope, shift, totalGames, totalRecordCombos }) {
   return (
     <Table>
       <TableHead>
@@ -44,7 +44,7 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
                 type === 'Rank' ? <TableCell >{Math.floor(1000 * (combos[i] / totalCombos)) / 10}</TableCell> : null
               }
               {
-                type === 'Record' ? <TableCell >{roundToOneDecimal(calculatePercentage(logitFunc(max, slope, totalGames, teamObj.losses, shift), totalCombos))}</TableCell> : null
+                type === 'Record' ? <TableCell >{roundToOneDecimal(calculatePercentage(logitFunc(max, slope, totalGames, teamObj.losses, shift), totalRecordCombos))}</TableCell> : null
               }
             </TableRow>
           );
@@ -58,15 +58,18 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
  * CONTAINER
  */
 const mapState = (state) => {
+  const totalGames = (state.numSeasons + 1) * 82;
+  const teamRecords = createTeamRecordArr(state.teamRecords, state.numSeasons);
   return {
-    teamRecords: createTeamRecordArr(state.teamRecords, state.numSeasons),
+    teamRecords,
     combos: state.combos,
     totalCombos: state.combos.reduce((a, b) => a + b, 0),
     type: state.type,
     max: state.max,
     shift: state.shift,
     slope: state.slope,
-    totalGames: (state.numSeasons + 1) * 82,
+    totalGames,
+    totalRecordCombos: teamRecords.reduce((acc, teamObj) => acc + logitFunc(state.max, state.slope, totalGames, teamObj.losses, state.shift), 0),
   };
 };
 
