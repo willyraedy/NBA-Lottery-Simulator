@@ -6,6 +6,7 @@ import { Paper, Grid } from 'material-ui';
 
 import Navbar from './navbar';
 import ModelSpecs from './modelSpecs';
+import Presets from './presets';
 import ModelResults from './modelResults';
 import ComboGraph from './comboGraph';
 import Combos from './combos';
@@ -13,23 +14,19 @@ import TeamRecords from './teamRecords';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
     marginTop: 30,
+    display: 'flex',
   },
   paper: {
     padding: 16,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    width: '100%',
     overflowX: 'auto',
   },
   myContainer: {
     paddingRight: 40,
     paddingLeft: 40,
   },
-  modelSpecs: {
-    justify: 'center',
-  }
 });
 
 const Frame = ({ classes, results, type }) => {
@@ -37,47 +34,55 @@ const Frame = ({ classes, results, type }) => {
     <div>
       <Navbar />
       <div className={classes.root}>
-        <Grid container spacing={40} className={classes.myContainer}>
-          <Grid item xs={12} sm={6} md={3} >
+        <div className="specs-wrapper">
+          <div className="column column-4of4">
             <Paper className={classes.paper}>
               MODEL SPECS!!!!
               <ModelSpecs />
             </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          </div>
+          <div className="column column-4of4">
+            <Paper className={classes.paper}>
+              PRESETS!!!!
+              <Presets />
+            </Paper>
+          </div>
+        </div>
+        <div className="results-wrapper">
+          <div className="column column-1of4">
             <Paper className={classes.paper}>
               RECORDS GO HERE
               <TeamRecords />
             </Paper>
-          </Grid>
+          </div>
           {
             results.length ?
-              <Grid item xs={12} sm={6} md={6}>
+              <div className="column column-3of4">
                 <Paper className={classes.paper}>
                   SIMULATION RESULTS
                   <ModelResults />
                 </Paper>
-              </Grid> : null
+              </div> : null
           }
           {
             !results.length && type === 'Rank' ?
-              <Grid item xs={12} sm={6} md={3}>
+              <div className="column column-1of4">
                 <Paper className={classes.paper}>
-                  CUSTOMIZED LOTTERY COMBINATIONS
+                  COMBINATIONS
                   <Combos />
                 </Paper>
-              </Grid> : null
+              </div> : null
           }
           {
             !results.length && type === 'Record' ?
-              <Grid item xs={12} sm={6} md={6}>
+              <div className="column column-3of4">
                 <Paper className={classes.paper}>
                   GRAPH GOES HERE
                   <ComboGraph />
                 </Paper>
-              </Grid> : null
+              </div> : null
           }
-        </Grid>
+        </div>
       </div>
     </div>
   );
