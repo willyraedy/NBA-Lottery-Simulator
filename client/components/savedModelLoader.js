@@ -21,7 +21,6 @@ class SavedModelLoader extends React.Component {
     if (!this.props.savedModelId) {
       const savedModelId = +this.props.match.params.id;
       const { type, season, numPicks, combos, numSims, max, shift, slope } = this.props;
-      this.props.setPageToDirty();
       this.props.getData(savedModelId, { type, season, numPicks, combos, numSims, max, shift, slope });
     }
   }

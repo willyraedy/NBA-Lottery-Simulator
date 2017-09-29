@@ -114,7 +114,7 @@ function ModelSpecs({
           <SingleSpec
             classes={classes}
             handleChange={handleNumSims}
-            optionArr={[1000, 10000, 100000, 1000000]}
+            optionArr={[1000, 10000, 100000]}
             paramName="numSims"
             val={numSims}
             label="Number of Simulations:"
