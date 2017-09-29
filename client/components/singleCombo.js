@@ -30,12 +30,11 @@ function SingleCombo({ classes, comboIndex, currentCombo, handleComboChange, cur
         <FormControl className={classes.formControl}>
           <Input
             type="number"
-            defaultValue={currentCombo}
+            value={currentCombo}
             onChange={e => handleComboChange(e.target.value, comboIndex)}
           />
         </FormControl>
       </TableCell>
-      <TableCell>{Math.floor(currentPercentage * 10) / 10 }</TableCell>
     </TableRow>
   )
 }

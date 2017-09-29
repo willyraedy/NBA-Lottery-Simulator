@@ -25,7 +25,6 @@ function Combos({ classes }) {
         <TableHead>
           <TableRow>
             <TableCell>Combinations</TableCell>
-            <TableCell>Percentage</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
