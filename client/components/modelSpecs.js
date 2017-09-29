@@ -193,8 +193,9 @@ const mapDispatch = (dispatch) => {
       dispatch(getNumberOfSimulations(e.target.value));
     },
     handleNumSeasons: (e, season, shift, numSeasons, slope) => {
-      dispatch(getNumberOfSeasons(e.target.value));
-      dispatch(fetchTeamRecords(season, e.target.value));
+      dispatch(fetchTeamRecords(season, e.target.value))
+        .then(() => dispatch(getNumberOfSeasons(e.target.value)))
+        .catch(console.error)
       const difference = (e.target.value - numSeasons);
       if (difference) {
         dispatch(getShift(shift + (10 * difference)));
