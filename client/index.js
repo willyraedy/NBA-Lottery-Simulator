@@ -6,9 +6,6 @@ import './index.scss'
 import store from './store'
 import { Main } from './components';
 
-// establishes socket connection
-import './socket'
-
 const theme = createMuiTheme();
 
 ReactDOM.render(
