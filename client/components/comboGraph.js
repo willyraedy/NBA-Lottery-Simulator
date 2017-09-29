@@ -33,8 +33,8 @@ class ComboGraph extends React.Component {
 }
 
 const mapState = (state) => {
-  const totalGames = 83 * (state.numSeasons + 1);
-  const dataPoints = createDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.max, state.slope, state.shift, totalGames);
+  const totalGames = 82 * (state.numSeasons + 1);
+  const dataPointsRaw = createDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.max, state.slope, state.shift, totalGames);
   return {
     options: {
       chart: {
@@ -42,9 +42,6 @@ const mapState = (state) => {
       },
       title: {
         text: 'Lottery Pick Distribution'
-      },
-      subtitle: {
-        text: 'Smooth'
       },
       xAxis: {
         title: {
@@ -58,6 +55,9 @@ const mapState = (state) => {
           text: 'Lottery Combinations'
         }
       },
+      legend: {
+        enabled: false,
+      },
       plotOptions: {
         spline: {
           enableMouseTracking: true,
@@ -68,12 +68,15 @@ const mapState = (state) => {
         pointFormat: '{point.name}: {point.x} wins, {point.y} combos'
       },
       series: [{
-        name: 'Custom Model',
+        name: false,
         marker: {
           symbol: 'square',
           enabled: true,
         },
-        data: dataPoints,
+        data: dataPointsRaw.map((dataObj) => {
+          dataObj.y = Math.round(dataObj.y);
+          return dataObj;
+        }),
       }]
     },
   };

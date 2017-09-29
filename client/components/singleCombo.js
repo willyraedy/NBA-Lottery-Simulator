@@ -23,7 +23,7 @@ const styles = theme => ({
   },
 });
 
-function SingleCombo({ classes, comboIndex, currentCombo, handleComboChange, currentPercentage }) {
+function SingleCombo({ classes, comboIndex, currentCombo, handleComboChange }) {
   return (
     <TableRow>
       <TableCell>
@@ -44,10 +44,8 @@ function SingleCombo({ classes, comboIndex, currentCombo, handleComboChange, cur
  * CONTAINER
  */
 const mapState = (state, ownProps) => {
-  const totalCombos = state.combos.reduce((a, b) => a + b, 0);
   const currentCombo = state.combos[ownProps.comboIndex];
   return {
-    currentPercentage: (currentCombo / totalCombos) * 100,
     currentCombo,
   };
 };
@@ -68,7 +66,6 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(SingleCombo));
 SingleCombo.propTypes = {
   classes: PropTypes.object.isRequired,
   currentCombo: PropTypes.number.isRequired,
-  currentPercentage: PropTypes.number.isRequired,
   comboIndex: PropTypes.number.isRequired,
   handleComboChange: PropTypes.func.isRequired,
 };

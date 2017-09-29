@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Paper, Grid } from 'material-ui';
+import { Paper, Typography } from 'material-ui';
 
 import Navbar from './navbar';
 import ModelSpecs from './modelSpecs';
@@ -21,7 +21,7 @@ const styles = theme => ({
     padding: 16,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    overflowX: 'auto',
+    overflowX: 'scroll',
   },
   myContainer: {
     paddingRight: 40,
@@ -37,21 +37,24 @@ const Frame = ({ classes, results, type }) => {
         <div className="specs-wrapper">
           <div className="column column-4of4">
             <Paper className={classes.paper}>
-              MODEL SPECS!!!!
+              <Typography type="subheading">LOTTERY SYSTEM SPECS</Typography>
               <ModelSpecs />
             </Paper>
           </div>
-          <div className="column column-4of4">
-            <Paper className={classes.paper}>
-              PRESETS!!!!
-              <Presets />
-            </Paper>
-          </div>
+          {
+            !results.length ?
+              <div className="column column-4of4">
+                <Paper className={classes.paper}>
+                  <Typography type="subheading">PRESET LEAGUE SYSTEMS</Typography>
+                  <Presets />
+                </Paper>
+              </div> : null
+          }
         </div>
         <div className="results-wrapper">
           <div className="column column-1of4">
             <Paper className={classes.paper}>
-              RECORDS GO HERE
+              <Typography type="subheading">TEAM RECORDS</Typography>
               <TeamRecords />
             </Paper>
           </div>
@@ -59,16 +62,16 @@ const Frame = ({ classes, results, type }) => {
             results.length ?
               <div className="column column-3of4">
                 <Paper className={classes.paper}>
-                  SIMULATION RESULTS
+                  <Typography type="subheading">SIMULATION RESULTS</Typography>
                   <ModelResults />
                 </Paper>
               </div> : null
           }
           {
             !results.length && type === 'Rank' ?
-              <div className="column column-1of4">
+              <div className="column column-1of6">
                 <Paper className={classes.paper}>
-                  COMBINATIONS
+                  <Typography type="subheading">COMBINATIONS</Typography>
                   <Combos />
                 </Paper>
               </div> : null
@@ -77,7 +80,6 @@ const Frame = ({ classes, results, type }) => {
             !results.length && type === 'Record' ?
               <div className="column column-3of4">
                 <Paper className={classes.paper}>
-                  GRAPH GOES HERE
                   <ComboGraph />
                 </Paper>
               </div> : null
