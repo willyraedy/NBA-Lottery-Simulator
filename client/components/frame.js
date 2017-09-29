@@ -7,7 +7,7 @@ import { Paper, Typography } from 'material-ui';
 import Navbar from './navbar';
 import ModelSpecs from './modelSpecs';
 import Presets from './presets';
-import ModelResults from './modelResults';
+import ResultsLoader from './resultsLoader';
 import ComboGraph from './comboGraph';
 import Combos from './combos';
 import TeamRecords from './teamRecords';
@@ -29,7 +29,7 @@ const styles = theme => ({
   },
 });
 
-const Frame = ({ classes, results, type }) => {
+const Frame = ({ classes, results, type, simDirty }) => {
   return (
     <div>
       <Navbar />
@@ -42,7 +42,7 @@ const Frame = ({ classes, results, type }) => {
             </Paper>
           </div>
           {
-            !results.length ?
+            !simDirty ?
               <div className="column column-4of4">
                 <Paper className={classes.paper}>
                   <Typography type="subheading">PRESET LEAGUE SYSTEMS</Typography>
@@ -59,25 +59,25 @@ const Frame = ({ classes, results, type }) => {
             </Paper>
           </div>
           {
-            results.length ?
+            simDirty ?
               <div className="column column-3of4">
                 <Paper className={classes.paper}>
                   <Typography type="subheading">SIMULATION RESULTS</Typography>
-                  <ModelResults />
+                  <ResultsLoader />
                 </Paper>
               </div> : null
           }
           {
-            !results.length && type === 'Rank' ?
+            !simDirty && type === 'Rank' ?
               <div className="column column-1of6">
                 <Paper className={classes.paper}>
-                  <Typography type="subheading">COMBINATIONS</Typography>
+                  <Typography type="subheading" noWrap>CUSTOM COMBINATIONS</Typography>
                   <Combos />
                 </Paper>
               </div> : null
           }
           {
-            !results.length && type === 'Record' ?
+            !simDirty && type === 'Record' ?
               <div className="column column-3of4">
                 <Paper className={classes.paper}>
                   <ComboGraph />
@@ -97,6 +97,7 @@ const mapState = (state) => {
   return {
     results: state.results,
     type: state.type,
+    simDirty: state.simDirty,
   };
 };
 
@@ -111,4 +112,5 @@ Frame.propTypes = {
   classes: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   type: PropTypes.string.isRequired,
+  simDirty: PropTypes.bool.isRequired,
 };

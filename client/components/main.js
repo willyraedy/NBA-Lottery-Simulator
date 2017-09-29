@@ -8,7 +8,7 @@ import history from '../history';
 
 
 import Frame from './frame';
-import Loader from './loader';
+import SavedModelLoader from './savedModelLoader';
 
 /**
  * COMPONENT
@@ -18,7 +18,7 @@ const Main = () => {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/savedModel/:id" component={Loader} />
+        <Route path="/savedModel/:id" component={SavedModelLoader} />
         <Route path="/" component={Frame} />
       </Switch>
     </Router>

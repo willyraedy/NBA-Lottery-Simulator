@@ -14,6 +14,7 @@ import {
   getMax,
   getShift,
   getSlope,
+  getSimDirty,
   getNumberOfLotteryPicks,
   getNumberOfSimulations,
   fetchSimulationResults,
@@ -136,7 +137,7 @@ function ModelSpecs({
       }
       {
         savedModelId ?
-          <Typography type="body1">{`Link to share: [url here]/savedModel/${savedModelId}`}</Typography> : null
+          <Typography type="body1">{`Link to share: ${window.location.origin}/savedModel/${savedModelId}`}</Typography> : null
       }
     </FormGroup>
   );
@@ -164,15 +165,19 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     simulateModel: (params) => {
+      dispatch(getSimDirty(true));
       dispatch(fetchSimulationResults(params));
     },
     adjustModel: () => {
+      dispatch(getSimDirty(false));
       dispatch(getSimulationResults([]));
       dispatch(getModelId(null));
       history.push('/');
     },
     saveModel: (params) => {
-      dispatch(postSavedLotteryModelSpecs(params));
+      dispatch(postSavedLotteryModelSpecs(params))
+        .then(modelId => history.push(`/savedModel/${modelId}`))
+        .catch(console.error);
     },
     handleType: (e) => {
       dispatch(getType(e.target.value));

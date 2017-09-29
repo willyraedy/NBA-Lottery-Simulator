@@ -19,8 +19,9 @@ export const getModelId = id => ({ type: GET_SAVED_MODEL_ID, id });
 export const postSavedLotteryModelSpecs = paramObj => (dispatch) => {
   return axios.post('/api/save', paramObj)
     .then(res => res.data)
-    .then((results) => {
-      return dispatch(getModelId(results));
+    .then((modelId) => {
+      dispatch(getModelId(modelId));
+      return modelId;
     })
     .catch(addError);
 }

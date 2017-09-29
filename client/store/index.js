@@ -14,8 +14,9 @@ import slope from './slope';
 import shift from './shift';
 import savedModelId from './savedModelId';
 import numSeasons from './numSeasons';
+import simDirty from './simDirty';
 
-const reducer = combineReducers({ error, results, type, combos, season, numPicks, numSims, teamRecords, max, shift, slope, savedModelId, numSeasons });
+const reducer = combineReducers({ error, results, type, combos, season, numPicks, numSims, teamRecords, max, shift, slope, savedModelId, numSeasons, simDirty });
 const middleware = applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }));
 const store = createStore(reducer, middleware);
 
@@ -33,3 +34,4 @@ export * from './slope';
 export * from './shift';
 export * from './savedModelId';
 export * from './numSeasons';
+export * from './simDirty';

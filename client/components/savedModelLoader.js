@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { CircularProgress } from 'material-ui/Progress';
 
 import Frame from './frame';
-import { getSavedLotteryModelSpecs, fetchSimulationResults } from '../store';
+import { getSavedLotteryModelSpecs, fetchSimulationResults, getSimDirty } from '../store';
 
 const styles = theme => ({
   progress: {
@@ -15,12 +15,13 @@ const styles = theme => ({
   },
 });
 
-class Loader extends React.Component {
+class SavedModelLoader extends React.Component {
 
   componentDidMount() {
     if (!this.props.savedModelId) {
       const savedModelId = +this.props.match.params.id;
       const { type, season, numPicks, combos, numSims, max, shift, slope } = this.props;
+      this.props.setPageToDirty();
       this.props.getData(savedModelId, { type, season, numPicks, combos, numSims, max, shift, slope });
     }
   }
@@ -60,16 +61,19 @@ const mapDispatch = (dispatch) => {
         })
         .catch(console.error);
     },
+    setPageToDirty: () => {
+      dispatch(getSimDirty(true));
+    },
   };
 };
 
-export default withStyles(styles)(connect(mapState, mapDispatch)(Loader));
+export default withStyles(styles)(connect(mapState, mapDispatch)(SavedModelLoader));
 
 // /**
 //  * PROP TYPES
 //  */
-Loader.propTypes = {
+SavedModelLoader.propTypes = {
   classes: PropTypes.object.isRequired,
-  savedModelId: PropTypes.number.isRequired,
+  savedModelId: PropTypes.number,
   getData: PropTypes.func.isRequired,
 };
