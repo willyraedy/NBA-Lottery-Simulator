@@ -47,40 +47,38 @@ const Frame = ({ classes, results, type, simDirty }) => {
               </div> : null
           } */}
         </div>
-        <div className="results-wrapper">
-          <div className="column team-records">
-            <Paper className={classes.paper}>
-              <Typography type="subheading">TEAM RECORDS</Typography>
-              <TeamRecords />
-            </Paper>
-          </div>
-          {
-            simDirty ?
-              <div className="column sim-results">
-                <Paper className={classes.paper}>
-                  <Typography type="subheading">SIMULATION RESULTS</Typography>
-                  <ResultsLoader />
-                </Paper>
-              </div> : null
-          }
-          {/* {
-            !simDirty && type === 'Rank' ?
-              <div className="column column-1of6">
-                <Paper className={classes.paper}>
-                  <Typography type="subheading" noWrap>COMBOS</Typography>
-                  <Combos />
-                </Paper>
-              </div> : null
-          } */}
-          {
-            !simDirty && type === 'Record' ?
-              <div className="column combo-graph">
-                <Paper className={classes.paper}>
-                  <ComboGraph />
-                </Paper>
-              </div> : null
-          }
+        <div className="column team-records">
+          <Paper className={classes.paper}>
+            <Typography type="subheading">TEAM RECORDS</Typography>
+            <TeamRecords />
+          </Paper>
         </div>
+        {
+          simDirty ?
+            <div className="column sim-results">
+              <Paper className={classes.paper}>
+                <Typography type="subheading">SIMULATION RESULTS</Typography>
+                <ResultsLoader />
+              </Paper>
+            </div> : null
+        }
+        {/* {
+          !simDirty && type === 'Rank' ?
+            <div className="column column-1of6">
+              <Paper className={classes.paper}>
+                <Typography type="subheading" noWrap>COMBOS</Typography>
+                <Combos />
+              </Paper>
+            </div> : null
+        } */}
+        {
+          !simDirty && type === 'Record' ?
+            <div className="column combo-graph">
+              <Paper className={classes.paper}>
+                <ComboGraph />
+              </Paper>
+            </div> : null
+        }
       </div>
     </div>
   );
