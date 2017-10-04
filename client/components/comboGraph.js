@@ -27,7 +27,9 @@ class ComboGraph extends React.Component {
 
   render() {
     return (
-      <div id="container" style={{ width: '100%' }} />
+      <div id="container" style={{ width: '100%' }}>
+        Chart goes here
+      </div>
     );
   }
 }
@@ -35,10 +37,12 @@ class ComboGraph extends React.Component {
 const mapState = (state) => {
   const totalGames = 82 * (state.numSeasons + 1);
   const dataPointsRaw = createDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.max, state.slope, state.shift, totalGames);
+  console.log('Inner width:', window.innerWidth, typeof window.innerWidth)
   return {
     options: {
       chart: {
         type: 'spline',
+        width: (0.8 * window.innerWidth)
       },
       title: {
         text: 'Lottery Pick Distribution'

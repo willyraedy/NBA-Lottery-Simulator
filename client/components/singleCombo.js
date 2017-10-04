@@ -25,17 +25,15 @@ const styles = theme => ({
 
 function SingleCombo({ classes, comboIndex, currentCombo, handleComboChange }) {
   return (
-    <TableRow>
-      <TableCell>
-        <FormControl className={classes.formControl}>
-          <Input
-            type="number"
-            value={currentCombo}
-            onChange={e => handleComboChange(e.target.value, comboIndex)}
-          />
-        </FormControl>
-      </TableCell>
-    </TableRow>
+    <TableCell>
+      <FormControl className={classes.formControl}>
+        <Input
+          type="number"
+          value={currentCombo}
+          onChange={e => handleComboChange(e.target.value, comboIndex)}
+        />
+      </FormControl>
+    </TableCell>
   )
 }
 

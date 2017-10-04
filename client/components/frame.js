@@ -63,15 +63,15 @@ const Frame = ({ classes, results, type, simDirty }) => {
                 </Paper>
               </div> : null
           }
-          {
+          {/* {
             !simDirty && type === 'Rank' ?
               <div className="column column-1of6">
                 <Paper className={classes.paper}>
-                  <Typography type="subheading" noWrap>COMBINATIONS</Typography>
+                  <Typography type="subheading" noWrap>COMBOS</Typography>
                   <Combos />
                 </Paper>
               </div> : null
-          }
+          } */}
           {
             !simDirty && type === 'Record' ?
               <div className="column combo-graph">

@@ -1,9 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import './index.scss'
-import store from './store'
+import './index.scss';
+import store from './store';
 import { Main } from './components';
 
 const theme = createMuiTheme({
@@ -28,5 +28,5 @@ ReactDOM.render(
       <Main />
     </MuiThemeProvider>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );

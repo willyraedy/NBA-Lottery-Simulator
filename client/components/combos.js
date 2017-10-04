@@ -24,18 +24,20 @@ function Combos({ classes }) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Combinations</TableCell>
+            <TableCell>Combos</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {
             generateArray(0, 13).map((num) => {
               return (
-                <SingleCombo
-                  key={num}
-                  classes={classes}
-                  comboIndex={num}
-                />
+                <TableRow>
+                  <SingleCombo
+                    key={num}
+                    classes={classes}
+                    comboIndex={num}
+                  />
+                </TableRow>
               )
             })
           }

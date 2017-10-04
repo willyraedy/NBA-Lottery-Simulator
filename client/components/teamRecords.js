@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { Table, TableBody, TableCell, TableHead, TableRow } from 'material-ui';
 
+import SingleCombo from './singleCombo';
 import createTeamRecordArr from './utils/createTeamRecordArr';
 import { logitFunc, calculatePercentage, roundToOneDecimal } from './utils/logitFunc';
 
@@ -32,9 +33,12 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>Team Name</TableCell>
+          <TableCell>Team</TableCell>
           <TableCell numeric>Record</TableCell>
           <TableCell numeric>1st Pick %</TableCell>
+          {
+            type === 'Rank' ? <TableCell numeric>Combos</TableCell> : null
+          }
         </TableRow>
       </TableHead>
       <TableBody>
@@ -45,6 +49,13 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
               <TableCell >{teamObj.record}</TableCell>
               {
                 type === 'Rank' ? <TableCell >{Math.floor(1000 * (combos[i] / totalCombos)) / 10}</TableCell> : null
+              }
+              {
+                type === 'Rank' ?
+                  <SingleCombo
+                    classes={classes}
+                    comboIndex={i}
+                  /> : null
               }
               {
                 type === 'Record' ? <TableCell >{roundToOneDecimal(calculatePercentage(logitFunc(max, slope, totalGames, teamObj.losses, shift), totalRecordCombos))}</TableCell> : null
