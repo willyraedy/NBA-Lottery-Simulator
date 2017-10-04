@@ -15,10 +15,10 @@ import {
 
 const styles = theme => ({});
 
-const Presets = ({ handleCurrent, handleNew}) => {
+const Presets = ({ handleCurrent, handleNew }) => {
   return (
     <div>
-      <Button color="primary" onClick={handleCurrent}>Current Lottery System</Button>
+      <Button color="primary" onClick={handleCurrent}>Old Lottery System</Button>
       <Button color="primary" onClick={handleNew}>New Lottery System</Button>
     </div>
   );

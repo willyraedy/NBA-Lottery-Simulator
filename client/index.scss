@@ -24,40 +24,135 @@
   box-sizing: border-box;
 }
 
-.results-wrapper {
-  // flex: 0 0 75%;
+.my-container {
+  margin-top: 30px;
   display: flex;
-  width: 75%;
-  max-width: 75%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.results-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .specs-wrapper {
   display: flex;
+  justify-content: center;
   // flex: 0 0 20%;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  width: 23%;
+  // flex-wrap: wrap;
+  // align-content: flex-start;
+  // width: 23%;
+}
+
+.sim-results {
+  max-width: 100%;
+}
+
+.combo-graph {
+  max-width: 100%;
+}
+
+.specs-size-limiter {
+  max-width: 350px;
 }
 
 .column {
   padding: 0.5em;
 }
 
-.column-3of4 {
-  width: 68%;
-  overflow: hidden;
-}
+// .column-3of4 {
+//   width: 68%;
+//   overflow: hidden;
+// }
 
-.column-1of4 {
-  // flex: 0 0 25%;
-  width: 32%;
-}
+// .combo-graph {
+//   width: 68%;
+//   overflow: hidden;
+// }
 
-.column-1of6 {
-  flex: 0 0 15%;
-}
+// .column-1of4 {
+//   // flex: 0 0 25%;
+//   width: 32%;
+// }
 
-.column-4of4 {
-  // flex: 0 0 100%;
-  width: 100%;
-}
+// .team-records {
+//   width: 30%;
+// }
+
+// .column-1of6 {
+//   flex: 0 0 15%;
+// }
+
+// .column-4of4 {
+//   // flex: 0 0 100%;
+//   width: 100%;
+// }
+
+
+// @media (max-width: 649px) {
+//   .specs-wrapper {
+//     flex-wrap: wrap;
+//     width: 100%;
+//     align-self: center;
+//   }
+//   .results-wrapper {
+//     flex-direction: column;
+//     width: 100%;
+//     max-width: 100%;
+//   }
+//   .my-container {
+//     flex-direction: column;
+//   }
+//   .team-records {
+//     width: 100%
+//   }
+//   .combo-graph {
+//     width: 100%;
+//   }
+// }
+
+// @media (min-width: 650px) and (max-width: 1000px) {
+//   .specs-wrapper {
+//     flex-wrap: nowrap;
+//     width: 80%;
+//     align-self: center;
+//   }
+//   .results-wrapper {
+//     width: 100%;
+//     max-width: 100%;
+//   }
+//   .my-container {
+//     flex-direction: column;
+//   }
+//   .team-records {
+//     width: 45%
+//   }
+// }
+
+// // @media (max-width: 1000px) {
+// //   .specs-wrapper {
+// //     flex-wrap: nowrap;
+// //     width: 70%;
+// //     align-self: center;
+// //   }
+// //   .results-wrapper {
+// //     width: 100%;
+// //     max-width: 100%;
+// //   }
+// //   .my-container {
+// //     flex-direction: column;
+// //   }
+// // }
+
+// @media (min-width: 1001px) and (max-width: 1250px) {
+//   .specs-wrapper {
+//     width: 27%;
+//   }
+//   .team-records {
+//     width: 39%;
+//   }
+// }
+

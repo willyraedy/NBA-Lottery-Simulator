@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Table, TableBody, Button, FormGroup, Typography } from 'material-ui';
+import { Table, TableBody, Button, FormGroup, Typography, Paper } from 'material-ui';
 
 import history from '../history';
 import SingleSpec from './singleSpec';
 import SingleNumberSpec from './singleNumberSpec';
+import Presets from './presets';
 import generateArray from './utils/arrayCreator';
 import {
   getType,
@@ -42,7 +43,7 @@ const styles = theme => ({
 });
 
 function ModelSpecs({
-  classes, results,
+  classes, results, simDirty,
   type, season, numPicks, combos, numSims, numSeasons, max, shift, slope, savedModelId,
   handleNumPicks, handleNumSims, handleSeason, handleType, handleMax, handleShift, handleSlope, handleNumSeasons,
   simulateModel, adjustModel, saveModel,
@@ -73,7 +74,7 @@ function ModelSpecs({
             optionArr={generateArray(0, 2)}
             paramName="numSeasons"
             val={numSeasons}
-            label="Number of Previous Seasons:"
+            label="Previous Seasons:"
           />
           <SingleSpec
             classes={classes}
@@ -81,7 +82,7 @@ function ModelSpecs({
             optionArr={generateArray(1, 10)}
             paramName="numPicks"
             val={numPicks}
-            label="Number of Lottery Picks:"
+            label="Lottery Picks:"
           />
           {
             type === 'Record' ?
@@ -117,10 +118,13 @@ function ModelSpecs({
             optionArr={[1000, 10000, 100000]}
             paramName="numSims"
             val={numSims}
-            label="Number of Simulations:"
+            label="Simulations:"
           />
         </TableBody>
       </Table>
+      <div>
+        <hr />
+      </div>
       {
         results.length ?
           <div>
@@ -131,9 +135,14 @@ function ModelSpecs({
               Save and Share!
             </Button>
           </div> :
-          <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
-            Simulate
-          </Button>
+          <div>
+            <Typography type="subheading">OR START WITH AN EXISTING SYSTEM</Typography>
+            <Presets />
+            <hr />
+            <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
+              Simulate Your Model
+            </Button>
+          </div>
       }
       {
         savedModelId ?
@@ -159,6 +168,7 @@ const mapState = (state) => {
     slope: state.slope,
     results: state.results,
     savedModelId: state.savedModelId,
+    simDirty: state.simDirty,
   };
 };
 

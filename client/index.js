@@ -6,7 +6,21 @@ import './index.scss'
 import store from './store'
 import { Main } from './components';
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  overrides: {
+    MuiTableCell: {
+      padding: {
+        padding: '0 1em 0 1em',
+        '&:last-child': {
+          paddingRight: '0px',
+        },
+      },
+      numeric: {
+        textAlign: 'left',
+      },
+    },
+  },
+});
 
 ReactDOM.render(
   <Provider store={store}>
@@ -15,4 +29,4 @@ ReactDOM.render(
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')
-)
+);

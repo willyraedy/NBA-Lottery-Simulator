@@ -56,8 +56,9 @@ const mapDispatch = (dispatch) => {
     getData: (id, params) => {
       dispatch(getSavedLotteryModelSpecs(id))
         .then(() => {
-          dispatch(fetchSimulationResults(params));
+          return dispatch(fetchSimulationResults(params));
         })
+        .then(() => dispatch(getSimDirty(true)))
         .catch(console.error);
     },
     setPageToDirty: () => {

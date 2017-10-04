@@ -27,7 +27,7 @@ class ComboGraph extends React.Component {
 
   render() {
     return (
-      <div id="container" style={{ width: '100%', height: '700px' }} />
+      <div id="container" style={{ width: '100%' }} />
     );
   }
 }
@@ -38,7 +38,7 @@ const mapState = (state) => {
   return {
     options: {
       chart: {
-        type: 'spline'
+        type: 'spline',
       },
       title: {
         text: 'Lottery Pick Distribution'

@@ -13,10 +13,6 @@ import Combos from './combos';
 import TeamRecords from './teamRecords';
 
 const styles = theme => ({
-  root: {
-    marginTop: 30,
-    display: 'flex',
-  },
   paper: {
     padding: 16,
     textAlign: 'center',
@@ -33,15 +29,15 @@ const Frame = ({ classes, results, type, simDirty }) => {
   return (
     <div>
       <Navbar />
-      <div className={classes.root}>
+      <div className="my-container">
         <div className="specs-wrapper">
-          <div className="column column-4of4">
+          <div className="column specs-size-limiter">
             <Paper className={classes.paper}>
-              <Typography type="subheading">LOTTERY SYSTEM SPECS</Typography>
+              <Typography type="subheading">CREATE YOUR OWN CUSTOM SPECS</Typography>
               <ModelSpecs />
             </Paper>
           </div>
-          {
+          {/* {
             !simDirty ?
               <div className="column column-4of4">
                 <Paper className={classes.paper}>
@@ -49,10 +45,10 @@ const Frame = ({ classes, results, type, simDirty }) => {
                   <Presets />
                 </Paper>
               </div> : null
-          }
+          } */}
         </div>
         <div className="results-wrapper">
-          <div className="column column-1of4">
+          <div className="column team-records">
             <Paper className={classes.paper}>
               <Typography type="subheading">TEAM RECORDS</Typography>
               <TeamRecords />
@@ -60,7 +56,7 @@ const Frame = ({ classes, results, type, simDirty }) => {
           </div>
           {
             simDirty ?
-              <div className="column column-3of4">
+              <div className="column sim-results">
                 <Paper className={classes.paper}>
                   <Typography type="subheading">SIMULATION RESULTS</Typography>
                   <ResultsLoader />
@@ -71,14 +67,14 @@ const Frame = ({ classes, results, type, simDirty }) => {
             !simDirty && type === 'Rank' ?
               <div className="column column-1of6">
                 <Paper className={classes.paper}>
-                  <Typography type="subheading" noWrap>CUSTOM COMBINATIONS</Typography>
+                  <Typography type="subheading" noWrap>COMBINATIONS</Typography>
                   <Combos />
                 </Paper>
               </div> : null
           }
           {
             !simDirty && type === 'Record' ?
-              <div className="column column-3of4">
+              <div className="column combo-graph">
                 <Paper className={classes.paper}>
                   <ComboGraph />
                 </Paper>

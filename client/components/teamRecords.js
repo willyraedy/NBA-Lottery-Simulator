@@ -18,6 +18,9 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     height: '80vh',
   },
+  padding: {
+    padding: '0 1em 0 1em',
+  },
   myContainer: {
     paddingRight: 40,
     paddingLeft: 40,
