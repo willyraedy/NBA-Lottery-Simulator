@@ -1,5 +1,5 @@
 function adjustTies(arrOfTeams, originalCombos) {
-  const adjustedCombos = originalCombos;
+  const adjustedCombos = originalCombos.slice(0);
 
   for (let curRank = 1; curRank <= originalCombos.length; curRank++) {
     let numberOfTiedTeams = 0;

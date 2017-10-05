@@ -8,6 +8,9 @@ import SingleCombo from './singleCombo';
 import createTeamRecordArr from './utils/createTeamRecordArr';
 import { logitFunc, calculatePercentage, roundToOneDecimal } from './utils/logitFunc';
 
+const assignCombosByRank = require('../../simulate/rankBasedCombos');
+const addRank = require('../../simulate/addRank');
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -29,6 +32,7 @@ const styles = theme => ({
 });
 
 function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slope, shift, totalGames, totalRecordCombos }) {
+  const formattedTeamRecords = assignCombosByRank(addRank(teamRecords), combos);
   return (
     <Table>
       <TableHead>
@@ -42,13 +46,13 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
         </TableRow>
       </TableHead>
       <TableBody>
-        {teamRecords.map((teamObj, i) => {
+        {formattedTeamRecords.map((teamObj, i) => {
           return (
             <TableRow key={i}>
               <TableCell>{teamObj.teamName}</TableCell>
               <TableCell >{teamObj.record}</TableCell>
               {
-                type === 'Rank' ? <TableCell >{Math.floor(1000 * (combos[i] / totalCombos)) / 10}</TableCell> : null
+                type === 'Rank' ? <TableCell >{Math.floor(1000 * (teamObj.combinations / totalCombos)) / 10}</TableCell> : null
               }
               {
                 type === 'Rank' ?
