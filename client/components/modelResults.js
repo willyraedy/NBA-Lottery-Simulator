@@ -18,18 +18,20 @@ const styles = theme => ({
 });
 
 function ModelResults({ classes, results }) {
+  const filteredResults = results.filter(teamObj => !!teamObj.losses)
+  const numLotteryTeams = filteredResults.length - 16;
   return (
     <Table>
       <TableHead>
         <TableRow>
           {
-            generateArray(1, 14).map(num => <TableCell key={num} numeric>{num}</TableCell>)
+            generateArray(1, numLotteryTeams).map(num => <TableCell key={num} numeric>{num}</TableCell>)
           }
         </TableRow>
       </TableHead>
       <TableBody>
         {
-          results.map((teamObj, i) => {
+          filteredResults.map((teamObj, i) => {
             return (
               <TableRow key={i}>
                 {
@@ -37,11 +39,11 @@ function ModelResults({ classes, results }) {
                     return (
                       <TableCell key={i} numeric>{ Math.floor(pickPercentage * 100) / 100 }</TableCell>
                     )
-                  }).slice(0, 14)
+                  }).slice(0, numLotteryTeams)
                 }
               </TableRow>
             );
-          }).slice(0, 14)}
+          }).slice(0, numLotteryTeams)}
       </TableBody>
     </Table>
   );
