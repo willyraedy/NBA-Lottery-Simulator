@@ -1,3 +1,4 @@
+/* global window Highcharts */
 // @flow weak
 
 import React from 'react';
@@ -15,14 +16,32 @@ const styles = theme => ({
   },
 });
 
+const setChartWidth = (currWidth) => {
+  if (currWidth < 1001) return 0.8 * currWidth;
+  return 0.36 * currWidth;
+};
+
 class ComboGraph extends React.Component {
 
-  componentDidMount() {
+  resizeChart = () => {
+    this.props.options.chart.width = setChartWidth(window.innerWidth);
     Highcharts.chart('container', this.props.options);
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
+    this.props.options.chart.width = setChartWidth(window.innerWidth);
     Highcharts.chart('container', this.props.options);
+
+    window.addEventListener('resize', this.resizeChart);
+  }
+
+  componentDidUpdate() {
+    this.props.options.chart.width = setChartWidth(window.innerWidth);
+    Highcharts.chart('container', this.props.options);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resizeChart)
   }
 
   render() {
@@ -42,7 +61,7 @@ const mapState = (state) => {
     options: {
       chart: {
         type: 'spline',
-        width: (0.8 * window.innerWidth)
+
       },
       title: {
         text: 'Lottery Pick Distribution'
