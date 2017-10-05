@@ -56,7 +56,7 @@ class ComboGraph extends React.Component {
 const mapState = (state) => {
   const totalGames = 82 * (state.numSeasons + 1);
   const dataPointsRaw = createDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.max, state.slope, state.shift, totalGames);
-  console.log('Inner width:', window.innerWidth, typeof window.innerWidth)
+
   return {
     options: {
       chart: {
@@ -66,7 +66,7 @@ const mapState = (state) => {
         }
       },
       title: {
-        text: 'Lottery Pick Distribution'
+        text: 'LOTTERY PICK DISTRIBUTION'
       },
       xAxis: {
         title: {

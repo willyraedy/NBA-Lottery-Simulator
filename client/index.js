@@ -6,6 +6,8 @@ import './index.scss';
 import store from './store';
 import { Main } from './components';
 
+// rgba(224, 29, 55, 0.91)
+
 const theme = createMuiTheme({
   typography: {
     fontFamily: '"Tsukushi A Round Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
@@ -14,6 +16,7 @@ const theme = createMuiTheme({
     },
     title: {
       fontFamily: '"Toppan Bunkyu Midashi Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
+      fontSize: '30px',
     },
   },
   overrides: {
@@ -31,6 +34,21 @@ const theme = createMuiTheme({
     MuiInput: {
       root: {
         fontFamily: '"Toppan Bunkyu Midashi Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
+      },
+    },
+    MuiTableHead: {
+      root: {
+        color: 'black',
+      },
+    },
+    MuiAppBar: {
+      colorPrimary: {
+        backgroundColor: 'rgba(224, 29, 55, 0.85)',
+      },
+    },
+    MuiButton: {
+      flatPrimary: {
+        color: 'rgba(224, 29, 55, 0.85)',
       },
     },
   },

@@ -40,6 +40,10 @@ const styles = theme => ({
     paddingRight: 40,
     paddingLeft: 40,
   },
+  specTable: {
+    marginBottom: '0.5em',
+    borderCollapse: 'separate',
+  }
 });
 
 function ModelSpecs({
@@ -50,7 +54,7 @@ function ModelSpecs({
 }) {
   return (
     <FormGroup>
-      <Table>
+      <Table className={classes.specTable}>
         <TableBody>
           <SingleSpec
             classes={classes}
@@ -122,9 +126,6 @@ function ModelSpecs({
           />
         </TableBody>
       </Table>
-      <div>
-        <hr />
-      </div>
       {
         results.length ?
           <div>
@@ -136,12 +137,12 @@ function ModelSpecs({
             </Button>
           </div> :
           <div>
-            <Typography type="subheading">EXISTING SYSTEMS</Typography>
-            <Presets />
-            <hr />
             <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
               Simulate Your Model
             </Button>
+            <hr />
+            <Typography type="subheading">OR USE PRESETS</Typography>
+            <Presets />
           </div>
       }
       {

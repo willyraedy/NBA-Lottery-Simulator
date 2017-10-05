@@ -18,8 +18,8 @@ const styles = theme => ({});
 const Presets = ({ handleCurrent, handleNew }) => {
   return (
     <div>
-      <Button color="primary" onClick={handleCurrent}>Old Lottery System</Button>
-      <Button color="primary" onClick={handleNew}>New Lottery System</Button>
+      <Button color="primary" onClick={handleCurrent}>Old System</Button>
+      <Button color="primary" onClick={handleNew}>New System</Button>
     </div>
   );
 };
