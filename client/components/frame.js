@@ -33,7 +33,7 @@ const Frame = ({ classes, results, type, simDirty }) => {
         <div className="specs-wrapper">
           <div className="column specs-size-limiter">
             <Paper className={classes.paper}>
-              <Typography type="subheading">CREATE YOUR OWN CUSTOM SPECS</Typography>
+              <Typography type="subheading">CUSTOM SPECS</Typography>
               <ModelSpecs />
             </Paper>
           </div>

@@ -7,6 +7,15 @@ import store from './store';
 import { Main } from './components';
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: '"Tsukushi A Round Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
+    subheading: {
+      fontFamily: '"Toppan Bunkyu Midashi Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
+    },
+    title: {
+      fontFamily: '"Toppan Bunkyu Midashi Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
+    },
+  },
   overrides: {
     MuiTableCell: {
       padding: {
@@ -17,6 +26,11 @@ const theme = createMuiTheme({
       },
       numeric: {
         textAlign: 'left',
+      },
+    },
+    MuiInput: {
+      root: {
+        fontFamily: '"Toppan Bunkyu Midashi Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
       },
     },
   },

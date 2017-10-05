@@ -61,7 +61,9 @@ const mapState = (state) => {
     options: {
       chart: {
         type: 'spline',
-
+        style: {
+          fontFamily: '"Toppan Bunkyu Midashi Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
+        }
       },
       title: {
         text: 'Lottery Pick Distribution'

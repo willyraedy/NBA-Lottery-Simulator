@@ -136,7 +136,7 @@ function ModelSpecs({
             </Button>
           </div> :
           <div>
-            <Typography type="subheading">OR START WITH AN EXISTING SYSTEM</Typography>
+            <Typography type="subheading">EXISTING SYSTEMS</Typography>
             <Presets />
             <hr />
             <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
