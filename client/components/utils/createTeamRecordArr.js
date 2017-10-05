@@ -3,14 +3,14 @@ export default function createTeamRecordArr(teamRecords, numSeasons) {
   const teamRecordArr = [];
   Object.keys(teamRecords).forEach((teamName, i) => {
     const losses = teamRecords[teamName];
-    if (i) {
+    // does team have a record and cut out season
+    if (losses && losses < 1000) {
       teamRecordArr.push({
         teamName,
         record: `${totalGames - losses} - ${losses}`,
-        // what year did they start playing 82 games???????
         losses,
       });
     }
   });
-  return teamRecordArr.sort((team1, team2) => team2.losses - team1.losses).slice(0, 14);
+  return teamRecordArr.sort((team1, team2) => team2.losses - team1.losses).slice(0, teamRecordArr.length - 16);
 }

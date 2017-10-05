@@ -67,7 +67,7 @@ function ModelSpecs({
           <SingleSpec
             classes={classes}
             handleChange={e => handleSeason(e, numSeasons)}
-            optionArr={generateArray(1968, 2015)}
+            optionArr={generateArray(1984, 2015)}
             paramName="season"
             val={season}
             label="Season:"
