@@ -23,20 +23,52 @@ const styles = theme => ({
   },
 });
 
-function Navbar(props) {
-  const classes = props.classes;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography type="title" color="inherit" className={classes.flex}>
-            NBA LOTTERY SIMULATOR
-          </Typography>
-          <Button color="contrast" href="/">START OVER</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+
+
+class Navbar extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      width: window.innerWidth,
+    }
+  }
+
+  setResponsiveWidth = () => {
+    this.setState({ width: window.innerWidth });
+  }
+
+  responsiveNavbarName = (width) => {
+    if (width < 370) {
+      return 'SIMULATOR'
+    } else if (width < 565) {
+      return 'LOTTERY SIM';
+    }
+    return 'NBA LOTTERY SIMULATOR';
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.setResponsiveWidth);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setResponsiveWidth)
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography type="title" color="inherit" className={classes.flex}>
+              {this.responsiveNavbarName(this.state.width)}
+            </Typography>
+            <Button color="contrast" href="/">START OVER</Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
 // /**
