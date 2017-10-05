@@ -137,7 +137,7 @@ function ModelSpecs({
             </Button>
           </div> :
           <div>
-            <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
+            <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope, numSeasons })}>
               Simulate Your Model
             </Button>
             <hr />

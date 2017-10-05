@@ -29,12 +29,12 @@ const convertQueryParamsToNumbers = (obj, keys) => {
 };
 
 const runSimulations = function (params) {
-  const { season, numSims, combos, numPicks, type, max, shift, slope } = convertQueryParamsToNumbers(params, ['numSims', 'combos', 'numPicks', 'max', 'shift', 'slope']);
+  const { season, numSims, combos, numPicks, type, max, shift, slope, numSeasons } = convertQueryParamsToNumbers(params, ['numSims', 'combos', 'numPicks', 'max', 'shift', 'slope', 'numSeasons']);
   const formattedTeamData = addRank(createArrOfTeams(season));
 
   let teamsWithCombos;
   if (type === 'Rank') teamsWithCombos = assignCombosByRank(formattedTeamData, combos);
-  else if (type === 'Record') teamsWithCombos = assignCombosByRecord(formattedTeamData, max, shift, slope);
+  else if (type === 'Record') teamsWithCombos = assignCombosByRecord(formattedTeamData, max, shift, slope, numSeasons);
   else throw new Error('Unrecognized model type');
 
   const totalCombos = calculateTotalFirstPickCombos(teamsWithCombos);

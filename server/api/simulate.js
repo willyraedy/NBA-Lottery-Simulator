@@ -5,14 +5,15 @@ const runSimulations = require('../../simulate/runSimulations');
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  const { type, season, numPicks, numSims, combos, max, shift, slope } = req.query;
+  const { type, season, numPicks, numSims, combos, max, shift, slope, numSeasons } = req.query;
   Record.findOne({
     where: {
       season
     }
   })
+    .then(record => record.aggregateSeasons(numSeasons))
     .then((seasonData) => {
-      res.json(runSimulations({ season: seasonData, numSims, combos, numPicks, type, max, shift, slope }));
+      res.json(runSimulations({ season: seasonData, numSims, combos, numPicks, type, max, shift, slope, numSeasons }));
     })
     .catch(next);
 });
