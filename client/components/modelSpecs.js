@@ -16,6 +16,7 @@ import {
   getShift,
   getSlope,
   getSimDirty,
+  getCombos,
   getNumberOfLotteryPicks,
   getNumberOfSimulations,
   fetchSimulationResults,
@@ -66,7 +67,7 @@ function ModelSpecs({
           />
           <SingleSpec
             classes={classes}
-            handleChange={e => handleSeason(e, numSeasons)}
+            handleChange={e => handleSeason(e, numSeasons, combos)}
             optionArr={generateArray(1984, 2015)}
             paramName="season"
             val={season}
@@ -119,7 +120,7 @@ function ModelSpecs({
           <SingleSpec
             classes={classes}
             handleChange={handleNumSims}
-            optionArr={[1000, 10000, 100000]}
+            optionArr={[1, 1000, 10000, 100000]}
             paramName="numSims"
             val={numSims}
             label="Simulations:"
@@ -193,9 +194,23 @@ const mapDispatch = (dispatch) => {
     handleType: (e) => {
       dispatch(getType(e.target.value));
     },
-    handleSeason: (e, numSeasons) => {
+    handleSeason: (e, numSeasons, combos) => {
       dispatch(getSeason(e.target.value));
-      dispatch(fetchTeamRecords(e.target.value, numSeasons));
+      dispatch(fetchTeamRecords(e.target.value, numSeasons))
+        .then((actionObj) => {
+          // calculate length of combos array
+          const newComboLength = Object.keys(actionObj.teamLossesObj).filter((teamName) => {
+            return actionObj.teamLossesObj[teamName] && actionObj.teamLossesObj[teamName] < 1000;
+          }).length - 16;
+          // adjust comobs length to reflect number of playoff teams
+          if (combos.length >= newComboLength) {
+            dispatch(getCombos(combos.slice(0, newComboLength)));
+          } else {
+            const extendedCombos = combos.concat(Array(newComboLength - combos.length).fill(0));
+            dispatch(getCombos(extendedCombos));
+          }
+        })
+        .catch(console.error);
     },
     handleNumPicks: (e) => {
       dispatch(getNumberOfLotteryPicks(e.target.value));

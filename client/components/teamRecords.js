@@ -32,7 +32,7 @@ const styles = theme => ({
 });
 
 function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slope, shift, totalGames, totalRecordCombos }) {
-  const formattedTeamRecords = assignCombosByRank(addRank(teamRecords), combos);
+  const formattedTeamRecords = assignCombosByRank(addRank(teamRecords), combos)
   return (
     <Table>
       <TableHead>

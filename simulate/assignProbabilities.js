@@ -37,8 +37,10 @@ const simulateDraft = function (teamDataArr, numOfLotteryPicks, pickData, totalC
     else pickData[teamName][pickNum] = 1;
     // pickData[teamName][pickNum] ? pickData[teamName][pickNum]++ : pickData[teamName][pickNum] = 1;
   }
+  // calculate the rest of the draft picks
+  const totalNumOfDraftPicks = teamDataArr.filter(teamObj => !!teamObj.losses).length - 16;
   // simulate the rest of the draft picks
-  for (let pickNum = numOfLotteryPicks; pickNum < teamDataArr.length; pickNum++) {
+  for (let pickNum = numOfLotteryPicks; pickNum < totalNumOfDraftPicks; pickNum++) {
     const team = simulatePick(teamDataArr, draftData);
     const teamName = team.team;
     if (!pickData.hasOwnProperty(teamName)) {

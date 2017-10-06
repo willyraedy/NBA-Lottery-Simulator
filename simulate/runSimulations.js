@@ -28,9 +28,17 @@ const convertQueryParamsToNumbers = (obj, keys) => {
   return clone;
 };
 
+const sortByLossesThenName = (teamArr) => {
+  return teamArr.sort((team1, team2) => {
+    if (team1.losses !== team2.losses) return team2.losses - team1.losses;
+    if (team1.team < team2.team) return -1;
+    return 1;
+  });
+}
+
 const runSimulations = function (params) {
   const { season, numSims, combos, numPicks, type, max, shift, slope, numSeasons } = convertQueryParamsToNumbers(params, ['numSims', 'combos', 'numPicks', 'max', 'shift', 'slope', 'numSeasons']);
-  const formattedTeamData = addRank(createArrOfTeams(season));
+  const formattedTeamData = addRank(sortByLossesThenName(createArrOfTeams(season)));
 
   let teamsWithCombos;
   if (type === 'Rank') teamsWithCombos = assignCombosByRank(formattedTeamData, combos);
@@ -39,7 +47,8 @@ const runSimulations = function (params) {
 
   const totalCombos = calculateTotalFirstPickCombos(teamsWithCombos);
   const teamsWithProbs = assignAllFirstPickProbabilities(teamsWithCombos, formattedTeamData, totalCombos);
-  return assignProbabilities(formattedTeamData, teamsWithProbs, numPicks, numSims, totalCombos);
+  const results = assignProbabilities(formattedTeamData, teamsWithProbs, numPicks, numSims, totalCombos);
+  return sortByLossesThenName(results);
 };
 
 module.exports = runSimulations;

@@ -42,9 +42,7 @@ export const getTeamRecords = teamLossesObj => ({ type: GET_TEAM_RECORDS, teamLo
 export const fetchTeamRecords = (season, numSeasons) => (dispatch) => {
   return axios.get(`/api/record/${season}?numSeasons=${numSeasons}`)
     .then(res => res.data)
-    .then((results) => {
-      dispatch(getTeamRecords(results));
-    })
+    .then(results => dispatch(getTeamRecords(results)))
     .catch(addError);
 }
 
