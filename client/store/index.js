@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import error from './error';
@@ -18,7 +19,7 @@ import simDirty from './simDirty';
 
 const reducer = combineReducers({ error, results, type, combos, season, numPicks, numSims, teamRecords, max, shift, slope, savedModelId, numSeasons, simDirty });
 const middleware = applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }));
-const store = createStore(reducer, middleware);
+const store = createStore(reducer, composeWithDevTools(middleware));
 
 export default store;
 export * from './error';
