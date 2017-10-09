@@ -56,7 +56,9 @@ Records.prototype.aggregateSeasons = function (numPrevSeasons) {
       return seasonArr.map(instance => instance.dataValues)
     })
     .then(seasonCopies => mergeWith(instanceCopy, ...seasonCopies, (objValue, srcValue) => {
-      if (objValue < 1000) {
+      if (!objValue || !srcValue) {
+        return null;
+      } else if (objValue < 1000) {
         return objValue + srcValue;
       }
       return objValue;

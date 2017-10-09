@@ -26,6 +26,7 @@ import {
   getModelId,
   getNumberOfSeasons,
 } from '../store';
+import adjustCombos from './utils/adjustCombos';
 
 const styles = theme => ({
   root: {
@@ -75,7 +76,7 @@ function ModelSpecs({
           />
           <SingleSpec
             classes={classes}
-            handleChange={e => handleNumSeasons(e, season, shift, numSeasons, slope)}
+            handleChange={e => handleNumSeasons(e, season, shift, numSeasons, slope, combos)}
             optionArr={generateArray(0, 2)}
             paramName="numSeasons"
             val={numSeasons}
@@ -174,6 +175,8 @@ const mapState = (state) => {
   };
 };
 
+
+
 const mapDispatch = (dispatch) => {
   return {
     simulateModel: (params) => {
@@ -197,19 +200,7 @@ const mapDispatch = (dispatch) => {
     handleSeason: (e, numSeasons, combos) => {
       dispatch(getSeason(e.target.value));
       dispatch(fetchTeamRecords(e.target.value, numSeasons))
-        .then((actionObj) => {
-          // calculate length of combos array
-          const newComboLength = Object.keys(actionObj.teamLossesObj).filter((teamName) => {
-            return actionObj.teamLossesObj[teamName] && actionObj.teamLossesObj[teamName] < 1000;
-          }).length - 16;
-          // adjust comobs length to reflect number of playoff teams
-          if (combos.length >= newComboLength) {
-            dispatch(getCombos(combos.slice(0, newComboLength)));
-          } else {
-            const extendedCombos = combos.concat(Array(newComboLength - combos.length).fill(0));
-            dispatch(getCombos(extendedCombos));
-          }
-        })
+        .then(actionObj => adjustCombos(actionObj, combos, getCombos, dispatch))
         .catch(console.error);
     },
     handleNumPicks: (e) => {
@@ -218,9 +209,12 @@ const mapDispatch = (dispatch) => {
     handleNumSims: (e) => {
       dispatch(getNumberOfSimulations(e.target.value));
     },
-    handleNumSeasons: (e, season, shift, numSeasons, slope) => {
+    handleNumSeasons: (e, season, shift, numSeasons, slope, combos) => {
       dispatch(fetchTeamRecords(season, e.target.value))
-        .then(() => dispatch(getNumberOfSeasons(e.target.value)))
+        .then((actionObj) => {
+          dispatch(getNumberOfSeasons(e.target.value));
+          adjustCombos(actionObj, combos, getCombos, dispatch);
+        })
         .catch(console.error)
       const difference = (e.target.value - numSeasons);
       if (difference) {
