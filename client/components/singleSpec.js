@@ -1,34 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { TableRow, TableCell, FormControl, Select, MenuItem, Input } from 'material-ui';
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    marginTop: 30,
-  },
-  paper: {
-    padding: 16,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: '80vh',
-  },
-  myContainer: {
-    paddingRight: 40,
-    paddingLeft: 40,
-  },
-});
-
-function SingleSpec({ classes, handleChange, optionArr, val, label, results }) {
+function SingleSpec({ handleChange, optionArr, val, label, areResults }) {
   return (
     <TableRow>
       <TableCell>{label}</TableCell>
       <TableCell>
-        <FormControl className={classes.formControl}>
+        <FormControl>
           <Select
-            disabled={!!results.length}
+            disabled={areResults}
             value={val}
             input={<Input onChange={handleChange} id={label} />}
           >
@@ -53,19 +35,19 @@ function SingleSpec({ classes, handleChange, optionArr, val, label, results }) {
  */
 const mapState = (state) => {
   return {
-    results: state.results,
-  }
+    areResults: !!state.results.length,
+  };
 };
 
 const mapDispatch = null;
 
-export default withStyles(styles)(connect(mapState, mapDispatch)(SingleSpec));
+export default connect(mapState, mapDispatch)(SingleSpec);
 
 /**
  * PROP TYPES
  */
 SingleSpec.propTypes = {
-  classes: PropTypes.object.isRequired,
+  areResults: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   optionArr: PropTypes.array.isRequired,
   val: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

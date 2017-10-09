@@ -1,32 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { TableRow, TableCell, FormControl, Input } from 'material-ui';
+import { TableCell, FormControl, Input } from 'material-ui';
 
 import { changeCombo } from '../store';
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    marginTop: 30,
-  },
-  paper: {
-    padding: 16,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: '80vh',
-  },
-  myContainer: {
-    paddingRight: 40,
-    paddingLeft: 40,
-  },
-});
-
-function SingleCombo({ classes, comboIndex, currentCombo, handleComboChange }) {
+function SingleCombo({ comboIndex, currentCombo, handleComboChange }) {
   return (
     <TableCell>
-      <FormControl className={classes.formControl}>
+      <FormControl>
         <Input
           type="number"
           value={currentCombo}
@@ -34,9 +16,8 @@ function SingleCombo({ classes, comboIndex, currentCombo, handleComboChange }) {
         />
       </FormControl>
     </TableCell>
-  )
+  );
 }
-
 
 /**
  * CONTAINER
@@ -56,13 +37,12 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default withStyles(styles)(connect(mapState, mapDispatch)(SingleCombo));
+export default connect(mapState, mapDispatch)(SingleCombo);
 
 /**
  * PROP TYPES
  */
 SingleCombo.propTypes = {
-  classes: PropTypes.object.isRequired,
   currentCombo: PropTypes.number.isRequired,
   comboIndex: PropTypes.number.isRequired,
   handleComboChange: PropTypes.func.isRequired,
