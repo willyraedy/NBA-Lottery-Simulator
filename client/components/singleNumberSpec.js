@@ -11,7 +11,7 @@ function SingleNumberSpec({ handleChange, val, label, areResults, step }) {
         <FormControl>
           <Input
             disabled={areResults}
-            inputProps={{ step }}
+            inputProps={{ step, min: 0 }}
             type="number"
             value={val}
             onChange={handleChange}
