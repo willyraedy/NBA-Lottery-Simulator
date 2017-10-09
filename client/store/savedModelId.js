@@ -6,7 +6,6 @@ import {
   getSeason,
   getShift,
   getSlope,
-  getMax,
   getType,
 } from './';
 
@@ -31,14 +30,13 @@ export const getSavedLotteryModelSpecs = modelId => (dispatch) => {
     .then(res => res.data)
     .then((results) => {
       // update the entire store
-      const { season, shift, slope, numSims, numPicks, max, id, type, combos } = results;
+      const { season, shift, slope, numSims, numPicks, id, type, combos } = results;
       dispatch(getModelId(id))
       dispatch(getNumberOfLotteryPicks(numPicks));
       dispatch(getNumberOfSimulations(numSims));
       dispatch(getSeason(season));
       if (shift) dispatch(getShift(shift));
       if (slope) dispatch(getSlope(slope));
-      if (max) dispatch(getMax(max));
       if (id) dispatch(getType(type));
     })
     .catch(addError);

@@ -21,9 +21,6 @@ const RankModels = db.define('lotteryModels', {
   combos: {
     type: Sequelize.ARRAY(Sequelize.INTEGER),
   },
-  max: {
-    type: Sequelize.FLOAT,
-  },
   shift: {
     type: Sequelize.FLOAT,
   },

@@ -1,11 +1,11 @@
 import { logitFunc } from './logitFunc';
 
-export function recordDataPoints(teamRecords, max, slope, shift, totalGames) {
+export function recordDataPoints(teamRecords, slope, shift, totalGames) {
   return teamRecords.map((teamRecordObj) => {
     const wins = totalGames - teamRecordObj.losses;
     return {
       x: wins,
-      y: logitFunc(max, slope, totalGames, teamRecordObj.losses, shift),
+      y: logitFunc(slope, totalGames, teamRecordObj.losses, shift),
       name: teamRecordObj.teamName,
     };
   });

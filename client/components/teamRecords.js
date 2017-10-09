@@ -31,7 +31,7 @@ const styles = theme => ({
   },
 });
 
-function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slope, shift, totalGames, totalRecordCombos }) {
+function TeamRecords({ classes, teamRecords, combos, totalCombos, type, slope, shift, totalGames, totalRecordCombos }) {
   const formattedTeamRecords = assignCombosByRank(addRank(teamRecords), combos)
   return (
     <Table>
@@ -62,7 +62,8 @@ function TeamRecords({ classes, teamRecords, combos, totalCombos, type, max, slo
                   /> : null
               }
               {
-                type === 'Record' ? <TableCell >{roundToOneDecimal(calculatePercentage(logitFunc(max, slope, totalGames, teamObj.losses, shift), totalRecordCombos))}</TableCell> : null
+                type === 'Record' ? <TableCell >{
+                  roundToOneDecimal(calculatePercentage(logitFunc(slope, totalGames, teamObj.losses, shift), totalRecordCombos))}</TableCell> : null
               }
             </TableRow>
           );
@@ -83,18 +84,15 @@ const mapState = (state) => {
     combos: state.combos,
     totalCombos: state.combos.reduce((a, b) => a + b, 0),
     type: state.type,
-    max: state.max,
     shift: state.shift,
     slope: state.slope,
     totalGames,
-    totalRecordCombos: teamRecords.reduce((acc, teamObj) => acc + logitFunc(state.max, state.slope, totalGames, teamObj.losses, state.shift), 0),
+    totalRecordCombos: teamRecords.reduce((acc, teamObj) => acc + logitFunc(state.slope, totalGames, teamObj.losses, state.shift), 0),
   };
 };
 
 const mapDispatch = null;
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default withStyles(styles)(connect(mapState, mapDispatch)(TeamRecords));
 
 /**
@@ -105,4 +103,5 @@ TeamRecords.propTypes = {
   teamRecords: PropTypes.array.isRequired,
   combos: PropTypes.array.isRequired,
   totalCombos: PropTypes.number.isRequired,
+  slope: PropTypes.number.isRequired,
 };

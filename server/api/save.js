@@ -28,14 +28,13 @@ router.post('/', (req, res, next) => {
       })
       .catch(next);
   } else if (type === 'Record') {
-    const { max, shift, slope } = req.body;
+    const { shift, slope } = req.body;
     LotteryModel.findOrCreate({
       where: {
         type,
         season,
         numPicks,
         numSims,
-        max,
         shift,
         slope
       }

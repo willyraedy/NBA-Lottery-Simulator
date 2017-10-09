@@ -12,7 +12,6 @@ import generateArray from './utils/arrayCreator';
 import {
   getType,
   getSeason,
-  getMax,
   getShift,
   getSlope,
   getSimDirty,
@@ -50,8 +49,8 @@ const styles = theme => ({
 
 function ModelSpecs({
   classes, results, simDirty,
-  type, season, numPicks, combos, numSims, numSeasons, max, shift, slope, savedModelId,
-  handleNumPicks, handleNumSims, handleSeason, handleType, handleMax, handleShift, handleSlope, handleNumSeasons,
+  type, season, numPicks, combos, numSims, numSeasons, shift, slope, savedModelId,
+  handleNumPicks, handleNumSims, handleSeason, handleType, handleShift, handleSlope, handleNumSeasons,
   simulateModel, adjustModel, saveModel,
 }) {
   return (
@@ -94,14 +93,6 @@ function ModelSpecs({
             type === 'Record' ?
               [
                 <SingleNumberSpec
-                  key={1}
-                  step={10}
-                  classes={classes}
-                  handleChange={handleMax}
-                  val={max}
-                  label="Max:"
-                />,
-                <SingleNumberSpec
                   key={2}
                   step={0.5}
                   classes={classes}
@@ -134,12 +125,12 @@ function ModelSpecs({
             <Button color="primary" className={classes.button} onClick={adjustModel}>
               Adjust Model
             </Button>
-            <Button color="primary" className={classes.button} onClick={() => saveModel({ type, season, numPicks, combos, numSims, max, shift, slope })}>
+            <Button color="primary" className={classes.button} onClick={() => saveModel({ type, season, numPicks, combos, numSims, shift, slope })}>
               Save and Share!
             </Button>
           </div> :
           <div>
-            <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, max, shift, slope, numSeasons })}>
+            <Button color="primary" className={classes.button} onClick={() => simulateModel({ type, season, numPicks, combos, numSims, shift, slope, numSeasons })}>
               Simulate Your Model
             </Button>
             <hr />
@@ -166,7 +157,6 @@ const mapState = (state) => {
     combos: state.combos,
     numSims: state.numSims,
     numSeasons: state.numSeasons,
-    max: state.max,
     shift: state.shift,
     slope: state.slope,
     results: state.results,
@@ -174,8 +164,6 @@ const mapState = (state) => {
     simDirty: state.simDirty,
   };
 };
-
-
 
 const mapDispatch = (dispatch) => {
   return {
@@ -222,9 +210,6 @@ const mapDispatch = (dispatch) => {
         dispatch(getSlope(slope - (0.075 * difference)));
       }
     },
-    handleMax: (e) => {
-      dispatch(getMax(e.target.value));
-    },
     handleShift: (e) => {
       dispatch(getShift(+e.target.value));
     },
@@ -249,7 +234,6 @@ ModelSpecs.propTypes = {
   handleNumSeasons: PropTypes.func.isRequired,
   handleSeason: PropTypes.func.isRequired,
   handleType: PropTypes.func.isRequired,
-  handleMax: PropTypes.func.isRequired,
   handleShift: PropTypes.func.isRequired,
   handleSlope: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
@@ -258,7 +242,6 @@ ModelSpecs.propTypes = {
   combos: PropTypes.array.isRequired,
   numSims: PropTypes.number.isRequired,
   numSeasons: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
   shift: PropTypes.number.isRequired,
   slope: PropTypes.number.isRequired,
   savedModelId: PropTypes.number,

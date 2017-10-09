@@ -6,7 +6,7 @@ export function calculatePercentage(combo, totalCombos) {
   return 100 * (combo / totalCombos);
 }
 
-export function logitFunc(max, slope, totalGames, losses, shift) {
-  return max * (1 / (1 + Math.exp((slope * (totalGames - losses)) - shift)))
+export function logitFunc(slope, totalGames, losses, shift) {
+  return 140 * (1 / (1 + Math.exp((slope * (totalGames - losses)) - shift)));
 }
 

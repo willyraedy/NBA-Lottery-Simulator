@@ -55,7 +55,7 @@ class ComboGraph extends React.Component {
 
 const mapStateForRecord = (state) => {
   const totalGames = 82 * (state.numSeasons + 1);
-  const dataPointsRaw = recordDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.max, state.slope, state.shift, totalGames);
+  const dataPointsRaw = recordDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.slope, state.shift, totalGames);
 
   return {
     options: {

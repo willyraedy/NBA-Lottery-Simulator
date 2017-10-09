@@ -8,12 +8,12 @@ const defaultResults = [];
 export const getSimulationResults = results => ({ type: GET_SIMULATION_RESULTS, results });
 
 export const fetchSimulationResults = paramObj => (dispatch) => {
-  const { type, season, numPicks, numSims, combos, max, shift, slope, numSeasons } = paramObj;
+  const { type, season, numPicks, numSims, combos, shift, slope, numSeasons } = paramObj;
   let pathString = '';
 
   if (type === 'Rank') pathString = `/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}&numSeasons=${numSeasons}&${createComboQueryString(combos)}`;
 
-  else if (type === 'Record') pathString = `/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}&numSeasons=${numSeasons}&max=${max}&shift=${shift}&slope=${slope}`;
+  else if (type === 'Record') pathString = `/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}&numSeasons=${numSeasons}&shift=${shift}&slope=${slope}`;
 
   else throw new Error('Wrong kind of model type') // better error handling here
 
