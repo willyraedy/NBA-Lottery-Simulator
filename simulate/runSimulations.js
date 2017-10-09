@@ -34,7 +34,7 @@ const sortByLossesThenName = (teamArr) => {
     if (team1.team < team2.team) return -1;
     return 1;
   });
-}
+};
 
 const runSimulations = function (params) {
   const { season, numSims, combos, numPicks, type, shift, slope, numSeasons } = convertQueryParamsToNumbers(params, ['numSims', 'combos', 'numPicks', 'shift', 'slope', 'numSeasons']);

@@ -58,6 +58,7 @@ const manyDraftSimulations = function (teamDataArr, numOfLotteryPicks, numOfSimu
   for (let i = 0; i < numOfSimulations; i++) {
     simulateDraft(teamDataArr, numOfLotteryPicks, simulationResults, totalCombos);
   }
+
   Object.keys(simulationResults).forEach((key) => {
     for (let i = 0; i < simulationResults[key].length; i++) {
       let numOfPicks = simulationResults[key][i];
