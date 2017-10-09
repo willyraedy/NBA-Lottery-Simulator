@@ -10,6 +10,7 @@ const defaultTeamRecords = {
   CHA: 46,
   CHI: 41,
   CLE: 31,
+  DAL: 49,
   DEN: 42,
   DET: 45,
   GSW: 15,
