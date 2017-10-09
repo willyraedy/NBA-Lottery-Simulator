@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const GET_SEASON = 'GET_SEASON';
 
-const defaultSeason = 2015;
+const defaultSeason = 2017;
 
 export const getSeason = season => ({ type: GET_SEASON, season });
 
