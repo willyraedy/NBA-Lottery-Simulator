@@ -7,7 +7,7 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 
 import createTeamRecordArr from './utils/createTeamRecordArr';
-import createDataPoints from './utils/createDataPoints';
+import { recordDataPoints, rankDataPoints } from './utils/createDataPoints';
 
 const styles = theme => ({
   graphBox: {
@@ -53,9 +53,9 @@ class ComboGraph extends React.Component {
   }
 }
 
-const mapState = (state) => {
+const mapStateForRecord = (state) => {
   const totalGames = 82 * (state.numSeasons + 1);
-  const dataPointsRaw = createDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.max, state.slope, state.shift, totalGames);
+  const dataPointsRaw = recordDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.max, state.slope, state.shift, totalGames);
 
   return {
     options: {
@@ -102,14 +102,67 @@ const mapState = (state) => {
           dataObj.y = Math.round(dataObj.y);
           return dataObj;
         }),
-      }]
+      }],
+    }
+  };
+};
+
+const mapStateForRank = (state) => {
+  const dataPoints = rankDataPoints(createTeamRecordArr(state.teamRecords, state.numSeasons), state.combos);
+
+  return {
+    options: {
+      chart: {
+        type: 'spline',
+        style: {
+          fontFamily: '"Toppan Bunkyu Midashi Gothic", "Roboto", "Helvetica", "Arial", sans-serif',
+        }
+      },
+      title: {
+        text: 'LOTTERY PICK DISTRIBUTION'
+      },
+      xAxis: {
+        title: {
+          text: 'Rank'
+        },
+        minPadding: 0.05,
+        maxPadding: 0.05,
+        tickAmount: state.combos.length,
+        tickInterval: 1,
+      },
+      yAxis: {
+        title: {
+          text: 'Lottery Combinations'
+        }
+      },
+      legend: {
+        enabled: false,
+      },
+      plotOptions: {
+        spline: {
+          enableMouseTracking: true,
+        }
+      },
+      tooltip: {
+        headerFormat: '<b>{point.name}</b><br/>',
+        pointFormat: 'Rank {point.x}: {point.name} - {point.y} combos'
+      },
+      series: [{
+        name: false,
+        marker: {
+          symbol: 'square',
+          enabled: true,
+        },
+        data: dataPoints,
+      }],
     },
   };
 };
 
 const mapDispatch = null;
 
-export default withStyles(styles)(connect(mapState, mapDispatch)(ComboGraph));
+export const RecordGraph = withStyles(styles)(connect(mapStateForRecord, mapDispatch)(ComboGraph));
+export const RankGraph = withStyles(styles)(connect(mapStateForRank, mapDispatch)(ComboGraph));
 
 ComboGraph.propTypes = {
   options: PropTypes.object.isRequired,

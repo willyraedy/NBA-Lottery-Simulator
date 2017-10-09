@@ -6,10 +6,8 @@ import { Paper, Typography } from 'material-ui';
 
 import Navbar from './navbar';
 import ModelSpecs from './modelSpecs';
-import Presets from './presets';
 import ResultsLoader from './resultsLoader';
-import ComboGraph from './comboGraph';
-import Combos from './combos';
+import { RankGraph, RecordGraph } from './comboGraph';
 import TeamRecords from './teamRecords';
 
 const styles = theme => ({
@@ -25,7 +23,7 @@ const styles = theme => ({
   },
 });
 
-const Frame = ({ classes, results, type, simDirty }) => {
+const Frame = ({ classes, type, simDirty }) => {
   return (
     <div>
       <Navbar />
@@ -37,15 +35,6 @@ const Frame = ({ classes, results, type, simDirty }) => {
               <ModelSpecs />
             </Paper>
           </div>
-          {/* {
-            !simDirty ?
-              <div className="column column-4of4">
-                <Paper className={classes.paper}>
-                  <Typography type="subheading">PRESET LEAGUE SYSTEMS</Typography>
-                  <Presets />
-                </Paper>
-              </div> : null
-          } */}
         </div>
         <div className="column team-records">
           <Paper className={classes.paper}>
@@ -62,34 +51,32 @@ const Frame = ({ classes, results, type, simDirty }) => {
               </Paper>
             </div> : null
         }
-        {/* {
-          !simDirty && type === 'Rank' ?
-            <div className="column column-1of6">
-              <Paper className={classes.paper}>
-                <Typography type="subheading" noWrap>COMBOS</Typography>
-                <Combos />
-              </Paper>
-            </div> : null
-        } */}
         {
           !simDirty && type === 'Record' ?
             <div className="column combo-graph">
               <Paper className={classes.paper}>
-                <ComboGraph />
+                <RecordGraph />
+              </Paper>
+            </div> : null
+        }
+        {
+          !simDirty && type === 'Rank' ?
+            <div className="column combo-graph">
+              <Paper className={classes.paper}>
+                <RankGraph />
               </Paper>
             </div> : null
         }
       </div>
     </div>
   );
-}
+};
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
   return {
-    results: state.results,
     type: state.type,
     simDirty: state.simDirty,
   };
@@ -104,7 +91,6 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(Frame));
  */
 Frame.propTypes = {
   classes: PropTypes.object.isRequired,
-  results: PropTypes.array.isRequired,
   type: PropTypes.string.isRequired,
   simDirty: PropTypes.bool.isRequired,
 };

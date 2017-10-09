@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Button } from 'material-ui';
 
 import {
-  defaultCombos,
+  oldCombos,
   newCombos,
   getCombos,
   getType,
@@ -36,7 +36,7 @@ const mapDispatch = (dispatch) => {
       dispatch(getType('Rank'));
       dispatch(getNumberOfSeasons(0));
       dispatch(getNumberOfLotteryPicks(3));
-      dispatch(getCombos(defaultCombos.slice(0, numTeams)));
+      dispatch(getCombos(oldCombos.slice(0, numTeams)));
     },
     handleNew: (numTeams) => {
       dispatch(getType('Rank'));
