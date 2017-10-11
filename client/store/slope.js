@@ -1,6 +1,6 @@
 const GET_SLOPE = 'GET_SLOPE';
 
-const defaultSlope = 0.5;
+const defaultSlope = 0.35;
 
 export const getSlope = slope => ({ type: GET_SLOPE, slope });
 

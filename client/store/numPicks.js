@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const GET_NUMBER_OF_LOTTERY_PICKS = 'GET_NUMBER_OF_LOTTERY_PICKS';
 
-const defaultNumLotteryPicks = 3;
+const defaultNumLotteryPicks = 4;
 
 export const getNumberOfLotteryPicks = numPicks => ({ type: GET_NUMBER_OF_LOTTERY_PICKS, numPicks });
 
