@@ -37,7 +37,7 @@ const sortByLossesThenName = (teamArr) => {
 };
 
 const runSimulations = function (params) {
-  const { season, numSims, combos, numPicks, type, shift, slope, numSeasons } = convertQueryParamsToNumbers(params, ['numSims', 'combos', 'numPicks', 'shift', 'slope', 'numSeasons']);
+  const { season, numSims, combos, numPicks, type, shift, slope, numSeasons } = params;
   const formattedTeamData = addRank(sortByLossesThenName(createArrOfTeams(season)));
 
   let teamsWithCombos;
