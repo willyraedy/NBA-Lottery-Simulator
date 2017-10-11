@@ -26,9 +26,9 @@ const sanatizeValues = (params) => {
       case 'type':
         return value === 'Rank' || value === 'Record';
       case 'shift':
-        return value >= 4.5 && value <= 20;
+        return value >= 5 && value <= 20;
       case 'slope':
-        return value > 0 && value <= 0.55;
+        return value > 0 && value <= 0.5;
       case 'numSeasons':
         return value >= 0 && value < 3 && Number.isInteger(value);
       default:

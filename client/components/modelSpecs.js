@@ -95,6 +95,8 @@ function ModelSpecs({
                 <SingleNumberSpec
                   key={2}
                   step={0.5}
+                  min={5}
+                  max={20}
                   classes={classes}
                   handleChange={handleShift}
                   val={shift}
@@ -103,6 +105,8 @@ function ModelSpecs({
                 <SingleNumberSpec
                   key={3}
                   step={0.05}
+                  min={0.1}
+                  max={0.5}
                   classes={classes}
                   handleChange={handleSlope}
                   val={slope}

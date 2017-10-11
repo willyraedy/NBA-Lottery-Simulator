@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TableRow, TableCell, FormControl, Input } from 'material-ui';
 
-function SingleNumberSpec({ handleChange, val, label, areResults, step }) {
+function SingleNumberSpec({ handleChange, val, label, areResults, step, min, max }) {
   return (
     <TableRow>
       <TableCell>{label}</TableCell>
@@ -11,7 +11,7 @@ function SingleNumberSpec({ handleChange, val, label, areResults, step }) {
         <FormControl>
           <Input
             disabled={areResults}
-            inputProps={{ step, min: 0 }}
+            inputProps={{ step, min, max }}
             type="number"
             value={val}
             onChange={handleChange}
