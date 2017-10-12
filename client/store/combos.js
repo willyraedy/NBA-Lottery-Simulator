@@ -16,7 +16,7 @@ export default function (state = newCombos, action) {
     case CHANGE_COMBO:
       return state.map((combo, i) => {
         return i === action.index ? action.combo : combo;
-      })
+      });
     default:
       return state;
   }

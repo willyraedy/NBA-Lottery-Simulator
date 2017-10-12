@@ -23,7 +23,7 @@ export const postSavedLotteryModelSpecs = paramObj => (dispatch) => {
       return modelId;
     })
     .catch(addError);
-}
+};
 
 export const getSavedLotteryModelSpecs = modelId => (dispatch) => {
   return axios.get(`/api/save?id=${modelId}`)
@@ -40,7 +40,7 @@ export const getSavedLotteryModelSpecs = modelId => (dispatch) => {
       if (id) dispatch(getType(type));
     })
     .catch(addError);
-}
+};
 
 export default function (state = defaultId, action) {
   switch (action.type) {

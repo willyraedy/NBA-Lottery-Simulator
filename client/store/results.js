@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { addError } from './error';
+import { getSimDirty } from './simDirty';
 
 const GET_SIMULATION_RESULTS = 'GET_SIMULATION_RESULTS';
 
@@ -12,18 +13,19 @@ export const fetchSimulationResults = paramObj => (dispatch) => {
   let pathString = '';
 
   if (type === 'Rank') pathString = `/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}&numSeasons=${numSeasons}&${createComboQueryString(combos)}`;
-
   else if (type === 'Record') pathString = `/api/simulate?type=${type}&season=${season}&numPicks=${numPicks}&numSims=${numSims}&numSeasons=${numSeasons}&shift=${shift}&slope=${slope}`;
-
-  else throw new Error('Wrong kind of model type') // better error handling here
+  else throw new Error('Wrong kind of model type') // todo
 
   return axios.get(pathString)
     .then(res => res.data)
     .then((results) => {
       dispatch(getSimulationResults(results));
     })
-    .catch(addError);
-}
+    .catch((err) => {
+      dispatch(addError(err));
+      dispatch(getSimDirty(false));
+    });
+};
 
 export default function (state = defaultResults, action) {
   switch (action.type) {
