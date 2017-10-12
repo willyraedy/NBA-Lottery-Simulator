@@ -35,8 +35,11 @@ const sanatizeValues = (params) => {
         return false;
     }
   });
-  if (!specsAreClean) throw new Error('Invalid Specs');
-  return convertedParams;
+  if (specsAreClean) {
+    const totalCombos = convertedParams.combos.reduce((acc, combo) => acc + combo, 0);
+    if (totalCombos > 0) return convertedParams;
+  }
+  throw new Error('Invalid Specs');
 };
 
 module.exports = sanatizeValues;
