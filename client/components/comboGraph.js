@@ -133,7 +133,7 @@ const mapStateForRank = (state) => {
       yAxis: {
         title: {
           text: 'Lottery Combinations'
-        }
+        },
       },
       legend: {
         enabled: false,

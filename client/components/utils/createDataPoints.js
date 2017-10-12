@@ -1,4 +1,4 @@
-import { logitFunc } from './logitFunc';
+const logitFunc = require('../../../simulate/logitFunc');
 
 export function recordDataPoints(teamRecords, slope, shift, totalGames) {
   return teamRecords.map((teamRecordObj) => {

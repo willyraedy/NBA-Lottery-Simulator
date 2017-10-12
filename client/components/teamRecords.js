@@ -6,7 +6,9 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from 'material-ui';
 
 import SingleCombo from './singleCombo';
 import createTeamRecordArr from './utils/createTeamRecordArr';
-import { logitFunc, calculatePercentage, roundToOneDecimal } from './utils/logitFunc';
+import { calculatePercentage, roundToOneDecimal } from './utils/formatData';
+
+const logitFunc = require('../../simulate/logitFunc');
 
 const assignCombosByRank = require('../../simulate/rankBasedCombos');
 const addRank = require('../../simulate/addRank');
