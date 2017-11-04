@@ -1,105 +1,27 @@
-# Boilermaker
+# NBA Lottery Simulator
 
-*Good things come in pairs*
+Create your own NBA lottery system with this web application.
 
-Looking to mix up a backend with express/sequelize and a frontend with react/redux? That's `boilermaker`!
+## How to Use
 
-Follow along with the workshop to make your own! This canonical version can serve as a reference, or a starting point all on its own.
+You can visit the applicaton at: https://nba-lottery-simulator.herokuapp.com/[https://nba-lottery-simulator.herokuapp.com/]
 
-## Setup
+To make a model choose your specs on the left. The first choice is to choose whether the model should be based on the rank of the teams or their wins-loss record. Next, pick a season you’d like to simulate.
 
-To use this boilerplate, you'll need to take the following steps:
+If you choose ‘Rank’, a list of the combinations assigned to each team appears in the ‘Team Records’ table. Adjust these to create whatever model you like. You can also click the ‘Preset’ buttons to use the combinations of the newly approved system or the old system it replaces.
 
-* Don't fork or clone this repo! Instead, create a new, empty directory on your machine and `git init` (or create an empty repo on Github and clone it to your local machine)
-* Run the following commands:
+With ‘Record’ based systems, a team’s wins determine their combinations according to a mathematical function (a modified logit function for you math nerds). To modify this mathematical function, you change the ‘slope’ and ‘shift’ parameters.
 
-```
-git remote add boilermaker https://github.com/FullstackAcademy/boilermaker.git
-git fetch boilermaker
-git merge boilermaker/master
-```
+If you look at the shape of the curve, there’s a high end on the left and a low end on the right. The ‘slope’ determines how quickly the curve transitions from high to low. The higher the slope, the steeper the transition.
 
-Why did we do that? Because every once in a while, `boilermaker` may be updated with additional features or bug fixes, and you can easily get those changes from now on by entering:
+‘Shift’ moves the graph laterally. As the ‘shift’ goes up, the graph moves right. This means more teams get the highest odds. As the ‘shift’ goes down, the graph moves left and fewer teams reach the flat part of the curve.
 
-```
-git fetch boilermaker
-git merge boilermaker/master
-```
+Note that changing the ‘slope’ significantly changes the function and typically requires modifying the ‘shift’ in response.
 
-## Customize
+In either model, you can choose how many picks will be selected with the lottery using the ‘Lottery Pick’ spec. For example, if you choose 5, then 5 picks will be selected with the lottery and the worst team could drop all the way to the sixth pick.
 
-Now that you've got the code, follow these steps to get acclimated:
+The ‘Previous Seasons’ spec allows you to factor in a team’s records over multiple seasons when assigning combinations. If ‘Previous Seasons’ is set to 0 then the lottery will be determined by a single season. If ‘Previous Seasons’ is set to 2 then teams will be ranked by their records over the past three seasons (the current season plus the two previous). Note that if you’re simulating older seasons, a team has to have existed in all three seasons for it to be included in the simulation.
 
-* Update project name and description in `package.json` file
-* `npm install`, or `yarn install` - whatever you're into
-* Create two postgres databases: `boilermaker` and `boilermaker-test` (you can substitute these with the name of your own application - just be sure to go through and change the `package.json` and `server/db/db.js` to refer to the new names)
-  * By default, running `npm test` will use `boilermaker-test`, while regular development uses `boilermaker`
-* Create a file called `secrets.js` in the project root
-  * This file is `.gitignore`'d, and will *only* be required in your *development* environment
-  * Its purpose is to attach the secret env variables that you'll use while developing
-  * However, it's **very** important that you **not** push it to Github! Otherwise, *prying eyes* will find your secret API keys!
-  * It might look like this:
+You can see every team’s record and their chance at the first pick in the ‘Team Records’ table. This allows you to get a sense of your system before you simulate it.
 
-  ```
-    process.env.GOOGLE_CLIENT_ID = 'hush hush'
-    process.env.GOOGLE_CLIENT_SECRET = 'pretty secret'
-    process.env.GOOGLE_CALLBACK = '/auth/google/callback'
-  ```
-
-* To use OAuth with Google, complete the step above with a real client ID and client secret from Google
-  * You can get them here: https://console.developers.google.com/apis/credentials
-* Finally, complete the section below to set up your linter
-
-## Linting
-
-Linters are fundamental to any project - they ensure that your code has a consistent style, which is critical to writing readable code.
-
-Everyone has their own style, so Boilermaker does not come prepackaged with a linter. However, we `strongly` recommend that you (and your team, if working in a group) decide on a style, and stick with it. Here's what you need to do:
-
-* `npm install -g eslint`
-* In the root of your project, `eslint --init`
-* You will then be prompted to choose how you want to configure ESLint. We recommend selecting the `Use a popular style guide option`. The existing Boilermaker code was written in accordance with the `Standard` style, but you may choose a different one if you don't like it.
-  * [Standard style guide](https://standardjs.com/)
-  * [Airbnb style guide](https://github.com/airbnb/javascript)
-  * [Google style guide](https://google.github.io/styleguide/jsguide.html)
-* This will add an `.eslintrc.js`, `.eslintrc.yaml`, or `.eslintrc.json` (depending on which you choose) - `.js` or `.json` will usually work fine. You may also need to install an appropriate eslint plugin specific for your code editor.
-
-## Start
-
-`npm run start-dev` will make great things happen!
-
-If you want to run the server and/or webpack separately, you can also `npm run start-server` and `npm run build-client`.
-
-From there, just follow your bliss.
-
-## Deployment
-
-Ready to go world wide? Here's a guide to deployment!
-
-### Prep
-1. Set up the [Heroku command line tools](https://devcenter.heroku.com/articles/heroku-cli)
-2. `heroku login`
-3. Add a git remote for heroku:
-  - **If you're creating a new app...**
-    1. `heroku create` or `heroku create your-app-name` if you have a name in mind.
-    2. `heroku addons:create heroku-postgresql:hobby-dev` to add ("provision") a postgres database to your heroku dyno
-
-  - **If you already have a Heroku app...**
-    1.  `heroku git:remote your-app-name` You'll need to be a collaborator on the app.
-
-### When you're ready to deploy
-
-1. Make sure that all your work is fully committed and pushed to your master branch on Github.
-2. If you currently have an existing branch called "deploy", delete it now (`git branch -d deploy`). We're going to use a dummy branch with the name "deploy" (see below), so if you have one lying around, the script below will error
-3. `npm run deploy` - this will cause the following commands to happen in order:
-  - `git checkout -b deploy`: checks out a new branch called "deploy". Note that the name "deploy" here isn't magical, but it needs to match the name of the branch we specify when we push to our heroku remote.
-  - `webpack -p`: webpack will run in "production mode"
-  - `git add -f public/bundle.js public/bundle.js/map`: "force" add the otherwise gitignored build files
-  - `git commit --allow-empy -m 'Deploying'`: create a commit, even if nothing changed
-  - `git push --force heroku deploy:master`: push your local "deploy" branch to the "master" branch on heroku
-  - `git checkout master`: return to your master branch
-  - `git branch -D deploy`: remove the deploy branch
-
-Now, you should be deployed!
-
-Why do all of these steps? The big reason is because we don't want our production server to be cluttered up with dev dependencies like webpack, but at the same time we don't want our development git-tracking to be cluttered with production build files like bundle.js! By doing these steps, we make sure our development and production environments both stay nice and clean!
+When you’re ready, hit the ‘Simulate Your Model’ button. The program will simulate the draft the number of times you choose in the ‘Simulations’ spec and approximate the chance that each team gets each pick. The more simulations you choose, the more accurate the results but the longer it takes to run.
