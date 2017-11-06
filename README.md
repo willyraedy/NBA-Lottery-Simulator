@@ -4,7 +4,7 @@ Create your own NBA lottery system with this web application.
 
 ## How to Use
 
-You can visit the applicaton at: https://nba-lottery-simulator.herokuapp.com/[https://nba-lottery-simulator.herokuapp.com/]
+You can visit the applicaton at: https://nba-lottery-simulator.herokuapp.com/
 
 To make a model choose your specs on the left. The first choice is to choose whether the model should be based on the rank of the teams or their wins-loss record. Next, pick a season you’d like to simulate.
 
