@@ -20,8 +20,7 @@ class SavedModelLoader extends React.Component {
   componentDidMount() {
     if (!this.props.savedModelId) {
       const savedModelId = +this.props.match.params.id;
-      const { type, season, numPicks, combos, numSims, shift, slope } = this.props;
-      this.props.getData(savedModelId, { type, season, numPicks, combos, numSims, shift, slope });
+      this.props.getData(savedModelId);
     }
   }
 
@@ -47,14 +46,15 @@ const mapState = (state) => {
     shift: state.shift,
     slope: state.slope,
     results: state.results,
+    numSeasons: state.numSeasons,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    getData: (id, params) => {
+    getData: (id) => {
       dispatch(getSavedLotteryModelSpecs(id))
-        .then(() => {
+        .then((params) => {
           return dispatch(fetchSimulationResults(params));
         })
         .then(() => dispatch(getSimDirty(true)))

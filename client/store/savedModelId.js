@@ -7,6 +7,7 @@ import {
   getShift,
   getSlope,
   getType,
+  getNumberOfSeasons,
 } from './';
 
 const GET_SAVED_MODEL_ID = 'GET_SAVED_MODEL_ID';
@@ -30,14 +31,17 @@ export const getSavedLotteryModelSpecs = modelId => (dispatch) => {
     .then(res => res.data)
     .then((results) => {
       // update the entire store
-      const { season, shift, slope, numSims, numPicks, id, type, combos } = results;
-      dispatch(getModelId(id))
+      const { season, shift, slope, numSims, numPicks, id, type, combos, numSeasons } = results;
+      dispatch(getModelId(id));
+      dispatch(getNumberOfSeasons(numSeasons));
       dispatch(getNumberOfLotteryPicks(numPicks));
       dispatch(getNumberOfSimulations(numSims));
       dispatch(getSeason(season));
       if (shift) dispatch(getShift(shift));
       if (slope) dispatch(getSlope(slope));
       if (id) dispatch(getType(type));
+      // return results so component can immediately simulate saved model
+      return results;
     })
     .catch(addError);
 };

@@ -129,7 +129,7 @@ function ModelSpecs({
             <Button color="primary" className={classes.button} onClick={adjustModel}>
               Adjust Model
             </Button>
-            <Button color="primary" className={classes.button} onClick={() => saveModel({ type, season, numPicks, combos, numSims, shift, slope })}>
+            <Button color="primary" className={classes.button} onClick={() => saveModel({ type, season, numPicks, combos, numSims, shift, slope, numSeasons })}>
               Save and Share!
             </Button>
           </div> :

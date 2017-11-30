@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const { type, season, numPicks, numSims } = req.body;
+  const { type, season, numPicks, numSims, numSeasons } = req.body;
   if (type === 'Rank') {
     const { combos } = req.body;
     LotteryModel.findOrCreate({
@@ -20,7 +20,8 @@ router.post('/', (req, res, next) => {
         season,
         numPicks,
         numSims,
-        combos
+        combos,
+        numSeasons
       }
     })
       .then(([createdModel, created]) => {
@@ -36,7 +37,8 @@ router.post('/', (req, res, next) => {
         numPicks,
         numSims,
         shift,
-        slope
+        slope,
+        numSeasons
       }
     })
       .then(([createdModel, created]) => res.json(createdModel.id))

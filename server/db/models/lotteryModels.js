@@ -18,6 +18,10 @@ const RankModels = db.define('lotteryModels', {
     type: Sequelize.INTEGER,
     allowNull: false
   },
+  numSeasons: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
   combos: {
     type: Sequelize.ARRAY(Sequelize.INTEGER),
   },
