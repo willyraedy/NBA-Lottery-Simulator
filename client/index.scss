@@ -3,7 +3,7 @@
 }
 
 .my-container {
-  margin-top: 30px;
+  margin-top: 1.5rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -39,6 +39,19 @@
 
 .column {
   padding: 0.5em;
+}
+
+.tutorial-container {
+  margin-top: 1.5rem;
+  padding: 0 10% 5% 10%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.tutorial-container > p {
+  margin-top: 1rem;
+  align-self: flex-start;
 }
 
 

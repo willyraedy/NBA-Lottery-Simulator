@@ -8,6 +8,7 @@ import history from '../history';
 import Frame from './frame';
 import App from './app';
 import SavedModelLoader from './savedModelLoader';
+import Tutorial from './tutorial';
 
 /**
  * COMPONENT
@@ -18,6 +19,7 @@ const Main = () => {
     <Router history={history}>
       <Frame>
         <Switch>
+          <Route exact path="/tutorial" component={Tutorial} />
           <Route exact path="/savedModel/:savedModelId" component={SavedModelLoader} />
           <Route path="/" component={App} />
         </Switch>

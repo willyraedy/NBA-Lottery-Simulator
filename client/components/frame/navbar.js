@@ -8,6 +8,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import history from '../../history';
 
 const styles = theme => ({
   root: {
@@ -61,6 +62,7 @@ class Navbar extends React.Component {
             <Typography type="title" color="inherit" className={classes.flex}>
               {this.responsiveNavbarName(this.state.width)}
             </Typography>
+            <Button color="contrast" onClick={() => history.push('/tutorial')}>HOW DO I USE IT?</Button>
             <Button color="contrast" href="/">START OVER</Button>
           </Toolbar>
         </AppBar>
