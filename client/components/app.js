@@ -10,35 +10,11 @@ import { RankGraph, RecordGraph } from './comboGraph';
 import TeamRecords from './teamRecords';
 
 const styles = theme => ({
-  // errorBar: {
-  //   display: 'flex',
-  //   backgroundColor: 'red',
-  //   textAlign: 'center',
-  //   justifyContent: 'space-between',
-  // },
   paper: {
     padding: 16,
     textAlign: 'center',
     color: theme.palette.text.secondary,
     overflowX: 'scroll',
-  },
-  myContainer: {
-    paddingRight: 40,
-    paddingLeft: 40,
-  },
-  root: {
-    marginTop: theme.spacing.unit * 3,
-    width: '100%',
-  },
-  colorDefault: {
-    backgroundColor: 'orange',
-  },
-  errorMessage: {
-    color: 'white',
-    flex: 1,
-  },
-  errorButton: {
-    color: 'white',
   },
 });
 
@@ -104,9 +80,7 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(App));
  */
 App.propTypes = {
   classes: PropTypes.object.isRequired,
-  error: PropTypes.object,
   type: PropTypes.string.isRequired,
   simDirty: PropTypes.bool.isRequired,
-  handleError: PropTypes.func.isRequired,
 };
 

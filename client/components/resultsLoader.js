@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { CircularProgress } from 'material-ui/Progress';
 
 import ModelResults from './modelResults';
-import { getSavedLotteryModelSpecs, fetchSimulationResults, getSimDirty } from '../store';
 
 const styles = theme => ({
   progress: {

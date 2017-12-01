@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { Button } from 'material-ui';
 
@@ -13,8 +12,6 @@ import {
   getNumberOfSeasons,
 } from '../store';
 
-const styles = theme => ({});
-
 const Presets = ({ handleCurrent, handleNew, numOfLotteryTeams }) => {
   return (
     <div>
@@ -26,7 +23,9 @@ const Presets = ({ handleCurrent, handleNew, numOfLotteryTeams }) => {
 
 const mapState = (state) => {
   return {
-    numOfLotteryTeams: Object.keys(state.teamRecords).filter(team => state.teamRecords[team] && state.teamRecords[team] < 1000).length - 16,
+    numOfLotteryTeams: Object.keys(state.teamRecords)
+      .filter(team => state.teamRecords[team] && state.teamRecords[team] < 1000)
+      .length - 16,
   };
 };
 
@@ -47,9 +46,10 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default withStyles(styles)(connect(mapState, mapDispatch)(Presets));
+export default connect(mapState, mapDispatch)(Presets);
 
 Presets.propTypes = {
   handleCurrent: PropTypes.func.isRequired,
   handleNew: PropTypes.func.isRequired,
+  numOfLotteryTeams: PropTypes.number.isRequired,
 };

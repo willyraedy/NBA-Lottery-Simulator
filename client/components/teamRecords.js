@@ -34,7 +34,7 @@ const styles = theme => ({
 });
 
 function TeamRecords({ classes, teamRecords, combos, totalCombos, type, slope, shift, totalGames, totalRecordCombos }) {
-  const formattedTeamRecords = assignCombosByRank(addRank(teamRecords), combos)
+  const formattedTeamRecords = assignCombosByRank(addRank(teamRecords), combos);
   return (
     <Table>
       <TableHead>
@@ -106,4 +106,8 @@ TeamRecords.propTypes = {
   combos: PropTypes.array.isRequired,
   totalCombos: PropTypes.number.isRequired,
   slope: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  totalGames: PropTypes.number.isRequired,
+  totalRecordCombos: PropTypes.number.isRequired,
+  shift: PropTypes.number.isRequired,
 };

@@ -66,4 +66,6 @@ SavedModelLoader.propTypes = {
   classes: PropTypes.object.isRequired,
   savedModelId: PropTypes.number,
   getData: PropTypes.func.isRequired,
+  results: PropTypes.array.isRequired,
+  match: PropTypes.object.isRequired,
 };

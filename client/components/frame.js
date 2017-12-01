@@ -9,12 +9,6 @@ import Navbar from './navbar';
 import { removeError } from '../store';
 
 const styles = theme => ({
-  // errorBar: {
-  //   display: 'flex',
-  //   backgroundColor: 'red',
-  //   textAlign: 'center',
-  //   justifyContent: 'space-between',
-  // },
   paper: {
     padding: 16,
     textAlign: 'center',
@@ -88,4 +82,5 @@ Frame.propTypes = {
   classes: PropTypes.object.isRequired,
   error: PropTypes.object,
   handleError: PropTypes.func.isRequired,
+  children: PropTypes.object.isRequired,
 };

@@ -23,8 +23,6 @@ const styles = theme => ({
   },
 });
 
-
-
 class Navbar extends React.Component {
   constructor() {
     super()

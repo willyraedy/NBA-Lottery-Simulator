@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 // import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
@@ -26,20 +24,7 @@ const Main = () => {
       </Frame>
     </Router>
   );
-}
-
-/**
- * CONTAINER
- */
-const mapState = null;
-
-const mapDispatch = null;
-
-export default connect(mapState, mapDispatch)(Main);
-
-/**
- * PROP TYPES
- */
-Main.propTypes = {
-
 };
+
+export default Main;
+

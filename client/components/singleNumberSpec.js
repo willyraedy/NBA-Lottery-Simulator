@@ -44,4 +44,6 @@ SingleNumberSpec.propTypes = {
   val: PropTypes.number.isRequired,
   label: PropTypes.string.isRequired,
   step: PropTypes.number.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
 };
