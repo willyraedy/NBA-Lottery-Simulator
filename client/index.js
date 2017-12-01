@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import './index.scss';
 import store from './store';
-import { Main } from './components';
+import Main from './components/main';
 
 // rgba(224, 29, 55, 0.91)
 

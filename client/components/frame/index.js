@@ -6,7 +6,7 @@ import { Typography, Button, AppBar, Toolbar } from 'material-ui';
 import { withRouter } from 'react-router';
 
 import Navbar from './navbar';
-import { removeError } from '../store';
+import { removeError } from '../../store';
 
 const styles = theme => ({
   paper: {

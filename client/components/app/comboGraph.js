@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 
-import createTeamRecordArr from './utils/createTeamRecordArr';
-import { recordDataPoints, rankDataPoints } from './utils/createDataPoints';
+import createTeamRecordArr from '../utils/createTeamRecordArr';
+import { recordDataPoints, rankDataPoints } from '../utils/createDataPoints';
 
 const styles = theme => ({
   graphBox: {

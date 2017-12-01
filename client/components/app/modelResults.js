@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
-import generateArray from './utils/arrayCreator';
+import generateArray from '../utils/arrayCreator';
 
 function ModelResults({ results }) {
   const filteredResults = results.filter(teamObj => !!teamObj.losses);

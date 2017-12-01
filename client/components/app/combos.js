@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow, FormGroup } from 'mat
 
 import SingleCombo from './singleCombo';
 
-import generateArray from './utils/arrayCreator';
+import generateArray from '../utils/arrayCreator';
 
 const styles = theme => ({
   paper: {

@@ -6,11 +6,11 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { Table, TableBody, Button, FormGroup, Typography, Paper } from 'material-ui';
 
-import history from '../history';
+import history from '../../history';
 import SingleSpec from './singleSpec';
 import SingleNumberSpec from './singleNumberSpec';
 import Presets from './presets';
-import generateArray from './utils/arrayCreator';
+import generateArray from '../utils/arrayCreator';
 import {
   getType,
   getSeason,
@@ -26,8 +26,8 @@ import {
   postSavedLotteryModelSpecs,
   getModelId,
   getNumberOfSeasons,
-} from '../store';
-import adjustCombos from './utils/adjustCombos';
+} from '../../store';
+import adjustCombos from '../utils/adjustCombos';
 
 const styles = theme => ({
   root: {

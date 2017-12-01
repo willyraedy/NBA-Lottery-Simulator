@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TableCell, FormControl, Input } from 'material-ui';
 
-import { changeCombo } from '../store';
+import { changeCombo } from '../../store';
 
 function SingleCombo({ comboIndex, currentCombo, handleComboChange }) {
   return (

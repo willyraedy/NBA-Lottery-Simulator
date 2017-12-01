@@ -10,7 +10,7 @@ import {
   getType,
   getNumberOfLotteryPicks,
   getNumberOfSeasons,
-} from '../store';
+} from '../../store';
 
 const Presets = ({ handleCurrent, handleNew, numOfLotteryTeams }) => {
   return (
