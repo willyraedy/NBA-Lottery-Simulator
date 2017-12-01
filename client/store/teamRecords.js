@@ -43,7 +43,9 @@ export const fetchTeamRecords = (season, numSeasons) => (dispatch) => {
   return axios.get(`/api/record/${season}?numSeasons=${numSeasons}`)
     .then(res => res.data)
     .then(results => dispatch(getTeamRecords(results)))
-    .catch(addError);
+    .catch((err) => {
+      dispatch(addError(err));
+    });
 }
 
 export default function (state = defaultTeamRecords, action) {

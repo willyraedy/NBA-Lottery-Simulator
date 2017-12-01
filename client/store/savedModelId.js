@@ -23,7 +23,9 @@ export const postSavedLotteryModelSpecs = paramObj => (dispatch) => {
       dispatch(getModelId(modelId));
       return modelId;
     })
-    .catch(addError);
+    .catch((err) => {
+      dispatch(addError(err));
+    });
 };
 
 export const getSavedLotteryModelSpecs = modelId => (dispatch) => {
@@ -43,7 +45,9 @@ export const getSavedLotteryModelSpecs = modelId => (dispatch) => {
       // return results so component can immediately simulate saved model
       return results;
     })
-    .catch(addError);
+    .catch((err) => {
+      dispatch(addError(err));
+    });
 };
 
 export default function (state = defaultId, action) {
