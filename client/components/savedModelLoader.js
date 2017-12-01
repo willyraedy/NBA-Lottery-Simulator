@@ -11,7 +11,11 @@ import { getSavedLotteryModelSpecs, fetchSimulationResults, getSimDirty } from '
 
 const styles = theme => ({
   progress: {
-    margin: `0 ${theme.spacing.unit * 2}px`,
+    margin: `${theme.spacing.unit * 2}px`,
+  },
+  progressContainer: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 });
 
@@ -27,7 +31,11 @@ class SavedModelLoader extends React.Component {
   render() {
     const { classes, results } = this.props;
     return (
-      results.length ? <App /> : <CircularProgress className={classes.progress} />
+      results.length ?
+        <App /> :
+        <div className={classes.progressContainer}>
+          <CircularProgress className={classes.progress} />
+        </div>
     );
   }
 }
