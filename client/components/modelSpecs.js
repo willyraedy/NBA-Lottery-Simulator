@@ -48,7 +48,7 @@ const styles = theme => ({
 });
 
 function ModelSpecs({
-  classes, results, simDirty,
+  classes, results,
   type, season, numPicks, combos, numSims, numSeasons, shift, slope, savedModelId,
   handleNumPicks, handleNumSims, handleSeason, handleType, handleShift, handleSlope, handleNumSeasons,
   simulateModel, adjustModel, saveModel,
@@ -176,10 +176,10 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchSimulationResults(params));
     },
     adjustModel: () => {
+      history.push('/');
       dispatch(getSimDirty(false));
       dispatch(getSimulationResults([]));
       dispatch(getModelId(null));
-      history.push('/');
     },
     saveModel: (params) => {
       dispatch(postSavedLotteryModelSpecs(params))

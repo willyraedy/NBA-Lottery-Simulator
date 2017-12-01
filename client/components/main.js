@@ -8,6 +8,7 @@ import history from '../history';
 
 
 import Frame from './frame';
+import App from './app';
 import SavedModelLoader from './savedModelLoader';
 
 /**
@@ -17,10 +18,12 @@ import SavedModelLoader from './savedModelLoader';
 const Main = () => {
   return (
     <Router history={history}>
-      <Switch>
-        <Route path="/savedModel/:id" component={SavedModelLoader} />
-        <Route path="/" component={Frame} />
-      </Switch>
+      <Frame>
+        <Switch>
+          <Route exact path="/savedModel/:savedModelId" component={SavedModelLoader} />
+          <Route path="/" component={App} />
+        </Switch>
+      </Frame>
     </Router>
   );
 }

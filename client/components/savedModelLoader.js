@@ -6,7 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { CircularProgress } from 'material-ui/Progress';
 
-import Frame from './frame';
+import App from './app';
 import { getSavedLotteryModelSpecs, fetchSimulationResults, getSimDirty } from '../store';
 
 const styles = theme => ({
@@ -19,15 +19,15 @@ class SavedModelLoader extends React.Component {
 
   componentDidMount() {
     if (!this.props.savedModelId) {
-      const savedModelId = +this.props.match.params.id;
+      const savedModelId = +this.props.match.params.savedModelId;
       this.props.getData(savedModelId);
     }
   }
 
   render() {
-    const { classes, savedModelId, results } = this.props;
+    const { classes, results } = this.props;
     return (
-      savedModelId && results.length ? <Frame /> : <CircularProgress className={classes.progress} />
+      results.length ? <App /> : <CircularProgress className={classes.progress} />
     );
   }
 }
@@ -37,16 +37,7 @@ class SavedModelLoader extends React.Component {
 //  */
 const mapState = (state) => {
   return {
-    savedModelId: state.savedModelId,
-    type: state.type,
-    season: state.season,
-    numPicks: state.numPicks,
-    combos: state.combos,
-    numSims: state.numSims,
-    shift: state.shift,
-    slope: state.slope,
     results: state.results,
-    numSeasons: state.numSeasons,
   };
 };
 
@@ -58,7 +49,7 @@ const mapDispatch = (dispatch) => {
           return dispatch(fetchSimulationResults(params));
         })
         .then(() => dispatch(getSimDirty(true)))
-        .catch(console.error);
+        .catch(console.error); // add error?
     },
     setPageToDirty: () => {
       dispatch(getSimDirty(true));

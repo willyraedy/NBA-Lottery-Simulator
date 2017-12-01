@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
-import { Paper, Typography, Button, AppBar, Toolbar } from 'material-ui';
+import { Typography, Button, AppBar, Toolbar } from 'material-ui';
+import { withRouter } from 'react-router';
 
 import Navbar from './navbar';
-import ModelSpecs from './modelSpecs';
-import ResultsLoader from './resultsLoader';
-import { RankGraph, RecordGraph } from './comboGraph';
-import TeamRecords from './teamRecords';
 import { removeError } from '../store';
 
 const styles = theme => ({
@@ -44,7 +41,8 @@ const styles = theme => ({
   },
 });
 
-const Frame = ({ classes, type, simDirty, error, handleError }) => {
+const Frame = (props) => {
+  const { classes, error, handleError, children } = props;
   return (
     <div>
       <Navbar />
@@ -61,47 +59,7 @@ const Frame = ({ classes, type, simDirty, error, handleError }) => {
             </AppBar>
           </div> : null
       }
-      <div className="my-container">
-        <div className="specs-wrapper">
-          <div className="column specs-size-limiter">
-            <Paper className={classes.paper}>
-              <Typography type="subheading">CUSTOM SPECS</Typography>
-              <ModelSpecs />
-            </Paper>
-          </div>
-        </div>
-        <div className="column team-records">
-          <Paper className={classes.paper}>
-            <Typography type="subheading">TEAM RECORDS</Typography>
-            <TeamRecords />
-          </Paper>
-        </div>
-        {
-          simDirty ?
-            <div className="column sim-results">
-              <Paper className={classes.paper}>
-                <Typography type="subheading">SIMULATION RESULTS</Typography>
-                <ResultsLoader />
-              </Paper>
-            </div> : null
-        }
-        {
-          !simDirty && type === 'Record' ?
-            <div className="column combo-graph">
-              <Paper className={classes.paper}>
-                <RecordGraph />
-              </Paper>
-            </div> : null
-        }
-        {
-          !simDirty && type === 'Rank' ?
-            <div className="column combo-graph">
-              <Paper className={classes.paper}>
-                <RankGraph />
-              </Paper>
-            </div> : null
-        }
-      </div>
+      { children }
     </div>
   );
 };
@@ -111,8 +69,6 @@ const Frame = ({ classes, type, simDirty, error, handleError }) => {
  */
 const mapState = (state) => {
   return {
-    type: state.type,
-    simDirty: state.simDirty,
     error: state.error,
   };
 };
@@ -123,7 +79,7 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default withStyles(styles)(connect(mapState, mapDispatch)(Frame));
+export default withRouter(withStyles(styles)(connect(mapState, mapDispatch)(Frame)));
 
 /**
  * PROP TYPES
@@ -131,7 +87,5 @@ export default withStyles(styles)(connect(mapState, mapDispatch)(Frame));
 Frame.propTypes = {
   classes: PropTypes.object.isRequired,
   error: PropTypes.object,
-  type: PropTypes.string.isRequired,
-  simDirty: PropTypes.bool.isRequired,
   handleError: PropTypes.func.isRequired,
 };
