@@ -6,7 +6,13 @@ module.exports = router
 router.get('/', (req, res, next) => {
   const id = +req.query.id;
   LotteryModel.findById(id)
-    .then(modelSpecs => res.json(modelSpecs))
+    .then((modelSpecs) => {
+      if (!modelSpecs) {
+        res.status(404).send('Saved model not found');
+      } else {
+        res.json(modelSpecs);
+      }
+    })
     .catch(next);
 });
 
