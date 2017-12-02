@@ -18,7 +18,7 @@ const sanatizeValues = (params) => {
       case 'season':
         return value < 2018 && value > 1983 && Number.isInteger(value);
       case 'numSims':
-        return value === 1000 || value === 10000 || value === 100000;
+        return value === 1000 || value === 10000;
       case 'combos':
         return Array.isArray(value) && value.every(val => val >= 0 && val < 2000);
       case 'numPicks':
