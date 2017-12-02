@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -52,6 +56,10 @@
 .tutorial-container > p {
   margin-top: 1rem;
   align-self: flex-start;
+}
+
+.tutorial-button {
+  margin-top: 1rem;
 }
 
 

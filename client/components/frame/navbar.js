@@ -12,7 +12,7 @@ import history from '../../history';
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: 0,
     width: '100%',
   },
   flex: {

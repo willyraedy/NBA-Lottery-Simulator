@@ -41,7 +41,9 @@ function Tutorial() {
       <Typography type="body1">
         When you’re ready, hit the ‘Simulate Your Model’ button. The program will simulate the draft the number of times you choose in the ‘Simulations’ spec and approximate the chance that each team gets each pick. The more simulations you choose, the more accurate the results but the longer it takes to run.
       </Typography>
-      <Button color="primary" onClick={() => history.push('/')}>LET'S GET STARTED</Button>
+      <Button color="primary" className="tutorial-button" onClick={() => history.push('/')}>
+        LET'S GET STARTED
+      </Button>
     </div>
   )
 }
