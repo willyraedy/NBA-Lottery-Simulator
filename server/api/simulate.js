@@ -15,7 +15,9 @@ router.get('/', (req, res, next) => {
     })
       .then(record => record.aggregateSeasons(numSeasons))
       .then((seasonData) => {
-        res.json(runSimulations({ season: seasonData, numSims, combos, numPicks, type, shift, slope, numSeasons }));
+        setTimeout(() => {
+          res.json(runSimulations({ season: seasonData, numSims, combos, numPicks, type, shift, slope, numSeasons }));
+        }, 10);
       })
       .catch(next);
   } catch (err) {
