@@ -46,6 +46,7 @@ class SavedModelLoader extends React.Component {
 const mapState = (state) => {
   return {
     results: state.results,
+    savedModelId: state.savedModelId,
   };
 };
 

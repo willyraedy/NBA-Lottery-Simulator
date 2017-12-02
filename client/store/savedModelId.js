@@ -8,6 +8,7 @@ import {
   getSlope,
   getType,
   getNumberOfSeasons,
+  getSavedDirty,
 } from './';
 
 const GET_SAVED_MODEL_ID = 'GET_SAVED_MODEL_ID';
@@ -21,6 +22,7 @@ export const postSavedLotteryModelSpecs = paramObj => (dispatch) => {
     .then(res => res.data)
     .then((modelId) => {
       dispatch(getModelId(modelId));
+      dispatch(getSavedDirty(true));
       return modelId;
     })
     .catch((err) => {

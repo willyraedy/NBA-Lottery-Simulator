@@ -10,6 +10,8 @@ import history from '../../history';
 import SingleSpec from './singleSpec';
 import SingleNumberSpec from './singleNumberSpec';
 import Presets from './presets';
+import SavedLinkLoader from './savedLinkLoader';
+
 import generateArray from '../utils/arrayCreator';
 import {
   getType,
@@ -17,6 +19,7 @@ import {
   getShift,
   getSlope,
   getSimDirty,
+  getSavedDirty,
   getCombos,
   getNumberOfLotteryPicks,
   getNumberOfSimulations,
@@ -49,12 +52,12 @@ const styles = theme => ({
   }
 });
 
-function ModelSpecs({
+const ModelSpecs = ({
   classes, results,
-  type, season, numPicks, combos, numSims, numSeasons, shift, slope, savedModelId,
-  handleNumPicks, handleNumSims, handleSeason, handleType, handleShift, handleSlope, handleNumSeasons,
-  simulateModel, adjustModel, saveModel,
-}) {
+  type, season, numPicks, combos, numSims, numSeasons, shift, slope,
+  handleNumPicks, handleNumSims, handleSeason, handleType, handleShift, handleSlope, handleNumSeasons, postModel,
+  simulateModel, adjustModel, savedDirty,
+}) => {
   return (
     <FormGroup>
       <Table className={classes.specTable}>
@@ -131,7 +134,7 @@ function ModelSpecs({
             <Button color="primary" className={classes.button} onClick={adjustModel}>
               Adjust Model
             </Button>
-            <Button color="primary" className={classes.button} onClick={() => saveModel({ type, season, numPicks, combos, numSims, shift, slope, numSeasons })}>
+            <Button color="primary" className={classes.button} onClick={() => postModel({ type, season, numPicks, combos, numSims, shift, slope, numSeasons })}>
               Save and Share!
             </Button>
           </div> :
@@ -145,8 +148,7 @@ function ModelSpecs({
           </div>
       }
       {
-        savedModelId ?
-          <Typography type="body1">{`Link to share: ${window.location.origin}/savedModel/${savedModelId}`}</Typography> : null
+        savedDirty ? <SavedLinkLoader /> : null
       }
     </FormGroup>
   );
@@ -168,6 +170,7 @@ const mapState = (state) => {
     results: state.results,
     savedModelId: state.savedModelId,
     simDirty: state.simDirty,
+    savedDirty: state.savedDirty,
   };
 };
 
@@ -180,10 +183,11 @@ const mapDispatch = (dispatch) => {
     adjustModel: () => {
       history.push('/');
       dispatch(getSimDirty(false));
+      dispatch(getSavedDirty(false));
       dispatch(getSimulationResults([]));
       dispatch(getModelId(null));
     },
-    saveModel: (params) => {
+    postModel: (params) => {
       dispatch(postSavedLotteryModelSpecs(params))
         .then(modelId => history.push(`/savedModel/${modelId}`))
         .catch(console.error);
@@ -234,7 +238,7 @@ ModelSpecs.propTypes = {
   classes: PropTypes.object.isRequired,
   simulateModel: PropTypes.func.isRequired,
   adjustModel: PropTypes.func.isRequired,
-  saveModel: PropTypes.func.isRequired,
+  postModel: PropTypes.func.isRequired,
   handleNumPicks: PropTypes.func.isRequired,
   handleNumSims: PropTypes.func.isRequired,
   handleNumSeasons: PropTypes.func.isRequired,
@@ -250,6 +254,6 @@ ModelSpecs.propTypes = {
   numSeasons: PropTypes.number.isRequired,
   shift: PropTypes.number.isRequired,
   slope: PropTypes.number.isRequired,
-  savedModelId: PropTypes.number,
   results: PropTypes.array.isRequired,
+  savedDirty: PropTypes.bool.isRequired,
 };
